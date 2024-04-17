@@ -1,0 +1,132 @@
+
+1_taupaipai.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0000_R_hand_3
+  rotate: false
+  xy: 207, 54
+  size: 27, 22
+  orig: 27, 22
+  offset: 0, 0
+  index: -1
+_0001_R_hand_2
+  rotate: true
+  xy: 163, 54
+  size: 34, 42
+  orig: 34, 42
+  offset: 0, 0
+  index: -1
+_0002_R_hand_1
+  rotate: true
+  xy: 2, 20
+  size: 28, 66
+  orig: 28, 66
+  offset: 0, 0
+  index: -1
+_0003_L_hand_2
+  rotate: false
+  xy: 207, 78
+  size: 29, 23
+  orig: 29, 23
+  offset: 0, 0
+  index: -1
+_0004_L_hand_2
+  rotate: false
+  xy: 112, 2
+  size: 38, 38
+  orig: 38, 38
+  offset: 0, 0
+  index: -1
+_0005_L_hand_1
+  rotate: true
+  xy: 107, 139
+  size: 33, 67
+  orig: 33, 67
+  offset: 0, 0
+  index: -1
+_0006_R_leg_3
+  rotate: true
+  xy: 205, 103
+  size: 37, 33
+  orig: 37, 33
+  offset: 0, 0
+  index: -1
+_0007_R_leg_2
+  rotate: false
+  xy: 121, 65
+  size: 40, 72
+  orig: 40, 72
+  offset: 0, 0
+  index: -1
+_0008_R_leg_1
+  rotate: false
+  xy: 107, 174
+  size: 61, 80
+  orig: 61, 80
+  offset: 0, 0
+  index: -1
+_0009_L_Leg_3
+  rotate: true
+  xy: 70, 2
+  size: 38, 40
+  orig: 38, 40
+  offset: 0, 0
+  index: -1
+_0010_L_leg_2
+  rotate: false
+  xy: 70, 42
+  size: 49, 89
+  orig: 49, 89
+  offset: 0, 0
+  index: -1
+_0011_L_leg_1
+  rotate: false
+  xy: 2, 50
+  size: 66, 81
+  orig: 66, 81
+  offset: 0, 0
+  index: -1
+_0012_body
+  rotate: false
+  xy: 2, 133
+  size: 103, 121
+  orig: 103, 121
+  offset: 0, 0
+  index: -1
+_0013_head
+  rotate: false
+  xy: 170, 197
+  size: 78, 57
+  orig: 78, 57
+  offset: 0, 0
+  index: -1
+_0014_L_hand_4
+  rotate: true
+  xy: 223, 149
+  size: 46, 20
+  orig: 46, 20
+  offset: 0, 0
+  index: -1
+_0015_R_hand_5
+  rotate: true
+  xy: 163, 90
+  size: 47, 40
+  orig: 47, 40
+  offset: 0, 0
+  index: -1
+_0016_L_hand_5
+  rotate: false
+  xy: 176, 142
+  size: 45, 53
+  orig: 45, 53
+  offset: 0, 0
+  index: -1
+_0017_L_hand_6
+  rotate: false
+  xy: 152, 15
+  size: 44, 37
+  orig: 44, 37
+  offset: 0, 0
+  index: -1

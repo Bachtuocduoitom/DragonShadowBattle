@@ -1,0 +1,145 @@
+
+2_picolo.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0000_L_hand_4
+  rotate: true
+  xy: 229, 82
+  size: 56, 25
+  orig: 56, 25
+  offset: 0, 0
+  index: -1
+_0003_R_Leg_3
+  rotate: false
+  xy: 85, 2
+  size: 41, 45
+  orig: 41, 45
+  offset: 0, 0
+  index: -1
+_0004_R_Leg_2
+  rotate: true
+  xy: 182, 179
+  size: 75, 68
+  orig: 75, 68
+  offset: 0, 0
+  index: -1
+_0005_R_leg_1
+  rotate: false
+  xy: 90, 150
+  size: 90, 104
+  orig: 90, 104
+  offset: 0, 0
+  index: -1
+_0006_L_Leg_3
+  rotate: true
+  xy: 181, 6
+  size: 39, 36
+  orig: 39, 36
+  offset: 0, 0
+  index: -1
+_0007_L_leg_2
+  rotate: true
+  xy: 90, 101
+  size: 47, 77
+  orig: 47, 77
+  offset: 0, 0
+  index: -1
+_0008_L_Leg_1
+  rotate: false
+  xy: 2, 38
+  size: 81, 90
+  orig: 81, 90
+  offset: 0, 0
+  index: -1
+_0009_L_hand_3
+  rotate: false
+  xy: 54, 8
+  size: 29, 28
+  orig: 29, 28
+  offset: 0, 0
+  index: -1
+_0010_L_hand_2
+  rotate: false
+  xy: 2, 7
+  size: 50, 29
+  orig: 50, 29
+  offset: 0, 0
+  index: -1
+_0011_L_hand_1
+  rotate: true
+  xy: 169, 96
+  size: 42, 58
+  orig: 42, 58
+  offset: 0, 0
+  index: -1
+_0012_R_hand_3
+  rotate: false
+  xy: 219, 3
+  size: 30, 37
+  orig: 30, 37
+  offset: 0, 0
+  index: -1
+_0013_R_hand_2
+  rotate: false
+  xy: 219, 42
+  size: 35, 38
+  orig: 35, 38
+  offset: 0, 0
+  index: -1
+_0014_R_hand_1
+  rotate: true
+  xy: 182, 140
+  size: 37, 59
+  orig: 37, 59
+  offset: 0, 0
+  index: -1
+_0015_body
+  rotate: false
+  xy: 2, 130
+  size: 86, 124
+  orig: 86, 124
+  offset: 0, 0
+  index: -1
+them tay/_0001_R_hand_6
+  rotate: false
+  xy: 128, 2
+  size: 51, 43
+  orig: 51, 43
+  offset: 0, 0
+  index: -1
+them tay/_0002_L_hand_7-
+  rotate: false
+  xy: 152, 47
+  size: 56, 47
+  orig: 56, 47
+  offset: 0, 0
+  index: -1
+them tay/_0003_R_hand_7
+  rotate: false
+  xy: 85, 49
+  size: 65, 50
+  orig: 65, 50
+  offset: 0, 0
+  index: -1
+
+2_picolo2.png
+size: 128,128
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+_0016_head
+  rotate: false
+  xy: 2, 58
+  size: 51, 53
+  orig: 51, 53
+  offset: 0, 0
+  index: -1
+them tay/_0000_L_hand_5
+  rotate: false
+  xy: 2, 2
+  size: 47, 54
+  orig: 47, 54
+  offset: 0, 0
+  index: -1
