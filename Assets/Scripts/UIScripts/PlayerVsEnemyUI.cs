@@ -36,6 +36,9 @@ public class PlayerVsEnemyUI : MonoBehaviour
     {
         gameObject.SetActive(true);
         animator.SetTrigger(ZOOM_IN);
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.vs);
     }
 
     private void Update()

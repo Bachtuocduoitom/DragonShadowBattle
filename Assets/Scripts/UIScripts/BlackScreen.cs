@@ -16,6 +16,11 @@ public class BlackScreen : MonoBehaviour, IScreen
         
     }
 
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);

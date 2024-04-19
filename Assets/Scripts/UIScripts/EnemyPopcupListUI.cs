@@ -26,6 +26,8 @@ public class EnemyPopcupListUI : MonoBehaviour
     private bool startMoveEnemyList = false;
     private float delayTime = 0.5f;
 
+    private bool playSound = true;
+
     private void Start()
     {
         enemySOList = DataManager.Instance.GetEnemySOList();
@@ -42,8 +44,8 @@ public class EnemyPopcupListUI : MonoBehaviour
         currentEnemy = DataManager.Instance.GetPreEnemy();
         targetEnemy = DataManager.Instance.GetCurrentEnemy();
 
-        transform.localPosition = transform.localPosition + Vector3.down * currentEnemy * Y_OFFSET_BETWEEN_ENEMY;
         targetPosition = transform.localPosition + Vector3.down * targetEnemy * Y_OFFSET_BETWEEN_ENEMY;
+        transform.localPosition = transform.localPosition + Vector3.down * currentEnemy * Y_OFFSET_BETWEEN_ENEMY;
 
     }
 
@@ -65,6 +67,13 @@ public class EnemyPopcupListUI : MonoBehaviour
                 {
                     OnMoveEnemyListFinished?.Invoke();
                 });
+            }
+
+            // Play sound
+            if (playSound)
+            {
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.cach);
+                playSound = false;
             }
         }
         

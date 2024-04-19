@@ -8,6 +8,8 @@ public class CharacterAndBaseUI : MonoBehaviour
 
     [SerializeField] private Image characterImage;
 
+    [SerializeField] private ParticleSystem particleStarMoveUp;
+
 
     private float a = 420f;
     private float b = 110f;
@@ -164,11 +166,15 @@ public class CharacterAndBaseUI : MonoBehaviour
     public void StartCharacterMoveUpAndDown()
     {
         moveUpDownTween?.resume();
+
+        particleStarMoveUp.Play();
     }
 
     public void StopCharacterMoveUpAndDown()
     {
         
         moveUpDownTween?.pause();
+
+        particleStarMoveUp.Stop();
     }
 }

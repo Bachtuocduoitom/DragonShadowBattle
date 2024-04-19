@@ -13,11 +13,20 @@ public class SpinPopup : MonoBehaviour, IScreen
     [SerializeField] private RectTransform itemResult;
     [SerializeField] private Image itemImage;
 
+    private bool canSpin = true;
+
     private void Awake()
     {
         spinButton.onClick.AddListener(() =>
         {
+            if (!canSpin)
+            {
+                return;
+            }
+
             spinWheel.Spin();
+            canSpin = false;
+
             LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -20f, 0.2f)
             .setLoopPingPong(2)
             .setOnComplete(() =>
@@ -40,7 +49,9 @@ public class SpinPopup : MonoBehaviour, IScreen
                     });
                 });
             });
-            
+
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         blackBackroundTouchable.OnTouchBlackBackground += () =>
@@ -92,5 +103,10 @@ public class SpinPopup : MonoBehaviour, IScreen
             });
 
         
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

@@ -148,6 +148,10 @@ public class Player : MonoBehaviour
             Debug.Log("Hit player");
 
             Damage(enemySkill.GetDamage());
+
+            // Play sound
+            AudioManager.Instance.PlayPlayerHit();
+
         } else if (collider.TryGetComponent(out Item item))
         {
             ItemSpawner.ItemType itemType = item.GetItemType();
@@ -155,19 +159,34 @@ public class Player : MonoBehaviour
             {
                 case ItemSpawner.ItemType.GreenBean:
                     OnCollectItem?.Invoke(itemType);
+
+                    // Play sound
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                     break;
                 case ItemSpawner.ItemType.RedBean:
                     OnCollectItem?.Invoke(itemType);
+
+                    // Play sound
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                     break;
                 case ItemSpawner.ItemType.BlueBean:
                     OnCollectItem?.Invoke(itemType);
+
+                    // Play sound
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                     break;
                 case ItemSpawner.ItemType.Armor:
                     SpawnArmor();
+
+                    // Play sound
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                     break;
                 case ItemSpawner.ItemType.Gold:
                     DataManager.Instance.IncreaseGoldAmount(200);
                     DataManager.Instance.AddEarnCoin();
+
+                    // Play sound
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.coinEarn);
                     break;
             }
             item.HitPlayer();
@@ -182,6 +201,9 @@ public class Player : MonoBehaviour
     {
         // Gọi hàm SpawnBulletsWithDelay với một khoảng thời gian delay giữa mỗi viên đạn
         StartCoroutine(SpawnBulletsWithDelay(0.01f));
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerSpam);
     }
     IEnumerator SpawnBulletsWithDelay(float delay)
     {
@@ -190,23 +212,27 @@ public class Player : MonoBehaviour
             Transform skillSpamTransform = Instantiate(skillSpamPrefab, skillSpawnPosition.position, Quaternion.identity);
             GokuSpamSkill skillSpam = skillSpamTransform.GetComponent<GokuSpamSkill>();
             skillSpam.ScaleDamageDependOnEnemyScalePower(DataManager.Instance.GetPowerScaleForCurrentTransform(currentSkin));
-
+            Vector3 pointBPosition;
             switch (i)
             {
-                case 0:
-                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition1.position);
-                    break;
                 case 1:
-                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition5.position);
-                    break;
-                case 2:
-                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition2.position);
+                    pointBPosition = spamSkillCurvePosition1.position + Vector3.up * UnityEngine.Random.Range(-5, 1);
+                    skillSpam.SetUpCurvePosition(pointBPosition);
                     break;
                 case 3:
-                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition4.position);
+                    pointBPosition = spamSkillCurvePosition2.position + Vector3.up * UnityEngine.Random.Range(-3, 0);
+                    skillSpam.SetUpCurvePosition(pointBPosition);
+                    break;
+                case 0:
+                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition3.position);
                     break;
                 case 4:
-                    skillSpam.SetUpCurvePosition(spamSkillCurvePosition3.position);
+                    pointBPosition = spamSkillCurvePosition5.position + Vector3.up * UnityEngine.Random.Range(0, 3);
+                    skillSpam.SetUpCurvePosition(pointBPosition);
+                    break;
+                case 2:
+                    pointBPosition = spamSkillCurvePosition5.position + Vector3.up * UnityEngine.Random.Range(-1, 5);
+                    skillSpam.SetUpCurvePosition(pointBPosition);
                     break;
             }
 
@@ -224,6 +250,9 @@ public class Player : MonoBehaviour
         GokuKamehaSkill kamehaSkill = skillTransform.GetComponent<GokuKamehaSkill>();
         kamehaSkill.SetDirection(enemyPosition);
         kamehaSkill.ScaleDamageDependOnEnemyScalePower(DataManager.Instance.GetPowerScaleForCurrentTransform(currentSkin));
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerKameha);
     }
     
     public void SpawnDonSkill()
@@ -231,6 +260,9 @@ public class Player : MonoBehaviour
         Transform skill1 = Instantiate(skill1Prefab, skillSpawnPosition.position, Quaternion.identity);
         GokuSkill1 donSkill = skill1.GetComponent<GokuSkill1>();
         donSkill.ScaleDamageDependOnEnemyScalePower(DataManager.Instance.GetPowerScaleForCurrentTransform(currentSkin));
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerDon);
     }
 
     public void SpawnSpiritBoomSkill()
@@ -243,6 +275,9 @@ public class Player : MonoBehaviour
         GokuSpiritBoomSkill spiritBoomSkill = skillTransform.GetComponent<GokuSpiritBoomSkill>();
         spiritBoomSkill.SetDirection(enemyPosition);
         spiritBoomSkill.ScaleDamageDependOnEnemyScalePower(DataManager.Instance.GetPowerScaleForCurrentTransform(currentSkin));
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerSpiritBoom);
     }
 
     public void SpawnDragonSkill()
@@ -250,6 +285,9 @@ public class Player : MonoBehaviour
         Transform skillTransform = Instantiate(skillDragonPrefab, skillSpawnPosition.position, Quaternion.identity);
         GokuDragonSkill dragonSkill = skillTransform.GetComponent<GokuDragonSkill>();
         dragonSkill.ScaleDamageDependOnEnemyScalePower(DataManager.Instance.GetPowerScaleForCurrentTransform(currentSkin));
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerDragon);
     }
 
     private void SpawnArmor()
@@ -361,6 +399,9 @@ public class Player : MonoBehaviour
         Transform armorTransform = Instantiate(playerArmor, skillSpawnPosition.position, Quaternion.identity);
         armorTransform.SetParent(transform);
         armorTransform.GetComponent<PlayerArmor>().SetTimeToDisappear(1f);
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerPowerUp);
     }
 
     
@@ -403,5 +444,8 @@ public class Player : MonoBehaviour
         state = State.Die;
         GameManager.Instance.UpdateGameState(GameManager.State.Defeat);
         gameObject.SetActive(false);
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.playerDie);
     }
 }

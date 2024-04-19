@@ -16,22 +16,28 @@ public class EndScreen : MonoBehaviour, IScreen
     [SerializeField] private Button shopButton;
     [SerializeField] private Button playButton;
     [SerializeField] private PlayerResultCard playerResultCard;
+    [SerializeField] private ParticleSystem particleStarMoveUp;
 
 
     private void Awake()
     {
         menuButton.onClick.AddListener(() =>
         {
-            
+            //SceneManager.LoadScene("MenuScene");
 
-            SceneManager.LoadScene("MenuScene");
+            SceneController.Instance.LoadMenuScene(ScreenController.ScreenType.MenuScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         shopButton.onClick.AddListener(() =>
         {
             // Reset data level
             DataManager.Instance.ResetDataLevel();
-            //SceneManager.LoadScene("ShopScene");
+
+            SceneController.Instance.LoadMenuScene(ScreenController.ScreenType.TransformScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         playButton.onClick.AddListener(() =>
@@ -40,17 +46,23 @@ public class EndScreen : MonoBehaviour, IScreen
             DataManager.Instance.ResetDataLevel();
 
             SceneManager.LoadScene("GamePlayScene");
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
     }
 
     public void Show()
     {
         gameObject.SetActive(true);
+
+        particleStarMoveUp.Play();
     }
 
     public void Hide()
     {
         gameObject.SetActive(false);
+
+        particleStarMoveUp.Stop();
     }
 
     public void ShowVictory()
@@ -67,5 +79,10 @@ public class EndScreen : MonoBehaviour, IScreen
         resultText.text = GAMEOVER_TEXT;
 
         playerResultCard.ShowResultSequentially();
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

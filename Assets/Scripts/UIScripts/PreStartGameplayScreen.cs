@@ -22,18 +22,25 @@ public class PreStartGameplayScreen : MonoBehaviour, IScreen
     {
         menuButton.onClick.AddListener(() =>
         {
+            SceneController.Instance.LoadMenuScene(ScreenController.ScreenType.MenuScreen);
 
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         shopButton.onClick.AddListener(() =>
         {
+            SceneController.Instance.LoadMenuScene(ScreenController.ScreenType.TransformScreen);
 
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
 
         playButton.onClick.AddListener(() =>
         {
            GameManager.Instance.UpdateGameState(GameManager.State.WaitingToStartGameplay);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
     }
     private void Start()
@@ -65,5 +72,10 @@ public class PreStartGameplayScreen : MonoBehaviour, IScreen
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

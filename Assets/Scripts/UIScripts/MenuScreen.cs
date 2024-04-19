@@ -24,36 +24,49 @@ public class MenuScreen : MonoBehaviour, IScreen
         spinButton.onClick.AddListener(() =>
         {
             spinPopup.Show();
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         //Show Setting Screen
         settingButton.onClick.AddListener(() =>
         {
             settingPopup.Show();
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         //Show Play Scene
         playButton.onClick.AddListener(() =>
         {
-            SceneManager.LoadScene("GamePlayScene");
+            //SceneManager.LoadScene("GamePlayScene");
+            SceneController.Instance.LoadGameplayScene();
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         //Show Free Scene
         freeButton.onClick.AddListener(() =>
         {
-            ScreenController.Instance.ShowScreen(ScreenController.ScreenType.FreeScreen);
+            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.FreeScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         //Show Shop Scene
         shopButton.onClick.AddListener(() =>
         {
-            ScreenController.Instance.ShowScreen(ScreenController.ScreenType.TransformScreen);
+            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.TransformScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         //Show Coins Scene
         coinsButton.onClick.AddListener(() =>
         {
-            ScreenController.Instance.ShowScreen(ScreenController.ScreenType.CoinsScreen);
+            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.CoinsScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
 
@@ -77,5 +90,15 @@ public class MenuScreen : MonoBehaviour, IScreen
     public void Hide()
     {
         gameObject.SetActive(false);
+    }
+
+    public bool IsActive()
+    {
+        return gameObject.activeInHierarchy;
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

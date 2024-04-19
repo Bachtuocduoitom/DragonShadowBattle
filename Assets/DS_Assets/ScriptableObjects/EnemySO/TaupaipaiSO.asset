@@ -21,6 +21,3 @@ MonoBehaviour:
   - {fileID: 7392211599138738618, guid: 1b1f6c162f340004d856387e820dfbcd, type: 3}
   - {fileID: 7392211599138738618, guid: 84a2861af6128b34481f514d988d65bd, type: 3}
   - {fileID: 346810037827799838, guid: b2e617d4b1635a24ebe3cc0422bbe674, type: 3}
-  skill1Tracktime: 1
-  skill2Tracktime: 0.6
-  skill3Tracktime: 0.6

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 64ef3f55a355955418916cf886c70fa4, type: 3}
-  m_Name: PlayerDonSkillSO
+  m_Name: PlayerKamehaSkillSO
   m_EditorClassIdentifier: 
-  skillName: Skill Don
-  speed: 10
-  damage: 50
-  manaCost: 10
+  skillName: Skill Kameha
+  speed: 15
+  damage: 100
+  manaCost: 40

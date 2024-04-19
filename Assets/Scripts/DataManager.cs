@@ -63,7 +63,8 @@ public class DataManager : MonoBehaviour
     private int levelBonus = 0;
     private int earnCoin = 0;
 
-
+    private bool isMusicOn = true;
+    private bool isSoundOn = true;
 
     private void Awake()
     {
@@ -142,7 +143,7 @@ public class DataManager : MonoBehaviour
     }
     public void UpdataCurrentEnemyAndPreEnemyOnVictory()
     {
-        if (currentEnemy + 1 < enemyPrefabList.Count)
+        if (currentEnemy < enemyPrefabList.Count)
         {
             preEnemy = currentEnemy;
             currentEnemy++;
@@ -152,12 +153,12 @@ public class DataManager : MonoBehaviour
     {
         preEnemy = currentEnemy;
 
-        if (currentEnemy - 2 >= 0)
+        if (currentEnemy - 2 >= 1)
         {
             currentEnemy -= 2;
         } else
         {
-            currentEnemy = 0;
+            currentEnemy = 1;
         }
     }
     public List<EnemySO> GetEnemySOList()
@@ -166,7 +167,7 @@ public class DataManager : MonoBehaviour
     }
     public EnemySO GetCurrentEnemySO()
     {
-        return enemySOList[currentEnemy];
+        return enemySOList[currentEnemy - 1];
     }
 
     public bool HasNextTransform(int currentTransform)
@@ -386,8 +387,31 @@ public class DataManager : MonoBehaviour
         earnCoin = 0;
     }
 
-
- 
+    // Music and Sound
+    public bool IsMusicOn()
+    {
+        return isMusicOn;
+    }
+    public bool IsSoundOn()
+    {
+        return isSoundOn;
+    }
+    public void TurnOnMusic()
+    {
+        isMusicOn = true;
+    }
+    public void TurnOffMusic()
+    {
+        isMusicOn = false;
+    }
+    public void TurnOnSound()
+    {
+        isSoundOn = true;
+    }
+    public void TurnOffSound()
+    {
+        isSoundOn = false;
+    }
 
     // Save Methods
     public void SaveUnlockedGokuTransformList()

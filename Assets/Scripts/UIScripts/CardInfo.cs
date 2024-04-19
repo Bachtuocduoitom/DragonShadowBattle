@@ -44,6 +44,8 @@ public class CardInfo : MonoBehaviour
         unlockButton.onClick.AddListener(() =>
         {
             OnUnlockButtonClicked?.Invoke(currentTransform, currentTransformCost);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
     }

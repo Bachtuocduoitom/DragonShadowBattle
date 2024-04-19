@@ -6,11 +6,15 @@ using UnityEngine.U2D;
 public class CharacterWheel : MonoBehaviour
 {
 
+    [SerializeField] private Transform pentagonLine;
+    [SerializeField] private RectTransform parentRectTransform;
+
     private CharacterAndBaseUI[] characterAndBaseUIList;
     private int characterAndBaseUIListLength;
-    private RectTransform parentRectTransform;
 
     private Sprite preCharacterSpriteLevel0;
+
+    private float zoomInDuration = 1f;
 
     private void Awake()
     {
@@ -20,9 +24,6 @@ public class CharacterWheel : MonoBehaviour
 
         // Set characterTag for each character and base UI
         SetTagForCharacterAndBaseUIList();
-
-
-        parentRectTransform = gameObject.GetComponent<RectTransform>();
        
     }
 
@@ -59,6 +60,10 @@ public class CharacterWheel : MonoBehaviour
 
             }
         }
+
+        // Rotate pentagon line
+        LeanTween.rotateZ(pentagonLine.gameObject, pentagonLine.eulerAngles.z + 72, 1f);
+
         // Stop move up and down for current character
         StopMoveUpAndDownForCurrentTransform();
 
@@ -108,6 +113,10 @@ public class CharacterWheel : MonoBehaviour
             }
 
         }
+
+        // Rotate pentagon line
+        LeanTween.rotateZ(pentagonLine.gameObject, pentagonLine.eulerAngles.z - 72, 1f);
+
         // Stop move up and down for current character
         StopMoveUpAndDownForCurrentTransform();
 
@@ -165,5 +174,18 @@ public class CharacterWheel : MonoBehaviour
     public void StopMoveUpAndDownForCurrentTransform()
     {
         characterAndBaseUIList[4].StopCharacterMoveUpAndDown();
+    }
+
+    public void PlayMoveInTween()
+    {
+        // Character wheel Zoom in
+        LeanTween.scale(gameObject, new Vector3(1f, 1f, 1f), zoomInDuration)
+            .setFrom(new Vector3(0.8f, 0.8f, 0.8f));
+
+        
+
+        // Pentagon line Zoom in
+       // LeanTween.scale(pentagonLine.gameObject, new Vector3(50f, 50f, 50f), zoomInDuration)
+        //    .setFrom(new Vector3(45f, 45f, 45f));
     }
 }

@@ -29,4 +29,9 @@ public class ChooseEnemyScreen : MonoBehaviour, IScreen
         gameObject.SetActive(true);
         enemyPopcupListUI.PlayMoveEnemyList();
     }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
+    }
 }

@@ -77,34 +77,7 @@ public class PlayerVisual : MonoBehaviour
 
     private void SetAnimationOnUpdate()
     {
-        /*
-        switch (state)
-        {
-            case Player.State.Idle:
-                SetAnimation(idle, true);
-                break;
-            case Player.State.UseNormalSkill:
-                SetAnimation(skill0, false);
-                break;
-            case Player.State.Transform:
-                break;
-            case Player.State.UseGatherSkill:
-                SetAnimation(tuSkill0, false);
-                break;
-        }*/
-
-        /*
-        if (trayCurrentAnimation.IsComplete && state != Player.State.Idle)
-        { 
-            if (state == Player.State.UseGatherSkill)
-            {
-                SetAnimation(skill1, false);
-            } else
-            {
-                player.BackToIdleState();
-            }
-        }
-        */
+        
         // Handle Transform animation
         if (state == Player.State.Transform && trayCurrentAnimation.trackTime > 0.7f && triggerToTransform)
         {

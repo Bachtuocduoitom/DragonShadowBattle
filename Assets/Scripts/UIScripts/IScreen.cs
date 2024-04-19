@@ -9,4 +9,6 @@ public interface IScreen
    
     public void Hide();
 
+    public bool IsShowed();
+
 }

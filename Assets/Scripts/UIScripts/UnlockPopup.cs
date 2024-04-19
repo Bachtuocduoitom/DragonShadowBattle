@@ -9,7 +9,7 @@ public class UnlockPopup : MonoBehaviour, IScreen
 
     [SerializeField] private TextMeshProUGUI unlockText;
     [SerializeField] private Button okButton;
-    [SerializeField] private BlackBackroundTouchable blackBackroundTouchable;
+    [SerializeField] private BlackBackroundTouchable blackBackgroundTouchable;
 
    
 
@@ -18,9 +18,11 @@ public class UnlockPopup : MonoBehaviour, IScreen
         okButton.onClick.AddListener(() =>
         {
             Hide();
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
-        blackBackroundTouchable.OnTouchBlackBackground += () =>
+        blackBackgroundTouchable.OnTouchBlackBackground += () =>
         {
             Hide();
         };
@@ -46,5 +48,10 @@ public class UnlockPopup : MonoBehaviour, IScreen
     public void Show()
     {
         gameObject.SetActive(true);
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

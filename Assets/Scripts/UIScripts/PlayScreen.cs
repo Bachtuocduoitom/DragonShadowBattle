@@ -39,5 +39,10 @@ public class PlayScreen : MonoBehaviour, IScreen
     {
         gameObject.SetActive(false);
     }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
+    }
 }
 

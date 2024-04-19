@@ -32,7 +32,7 @@ public class PlayerSkillBase : MonoBehaviour
     {
         if (collider.TryGetComponent(out EnemySkill enemySkill))
         {
-            enemySkill.HitPlayer();
+            //enemySkill.HitPlayer();
             Destroy(gameObject);
         }
     }

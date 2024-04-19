@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using static ScreenController;
 
 public class ScreenController : MonoBehaviour
 {
@@ -20,6 +23,9 @@ public class ScreenController : MonoBehaviour
     [SerializeField] private TransformScreen transformScreen;
     [SerializeField] private FreeScreen freeScreen;
     [SerializeField] private CoinsScreen coinsScreen;
+    [SerializeField] private Image blackTransition;
+
+    private float transitionDurartion = 0.5f;
 
 
     private ScreenType currentScreenType;
@@ -33,17 +39,44 @@ public class ScreenController : MonoBehaviour
             return;
         }
         Instance = this;
-
-        // Set default screen
-        currentScreenType = ScreenType.MenuScreen;
     }
 
     private void Start()
     {
-        ShowScreen(currentScreenType);
+        // Show Menu Screen 
+        if (currentScreen == null)
+        {
+            ShowScreen(ScreenType.MenuScreen);
+        }
+
+        AudioManager.Instance.PlayMenuMusic();
     }
 
-    public void ShowScreen(ScreenType screenType) 
+    public void ShowScreenWithTransition(ScreenType screenType) 
+    {
+        currentScreenType = screenType;
+
+        blackTransition.gameObject.SetActive(true);
+        LeanTween.alphaCanvas(blackTransition.GetComponent<CanvasGroup>(), 1, transitionDurartion)
+            .setOnComplete(() =>
+            {
+                if (currentScreen != null)
+                {
+                    currentScreen.Hide();
+                }
+
+                currentScreen = GetScreen(screenType);
+                currentScreen.Show();
+
+                LeanTween.alphaCanvas(blackTransition.GetComponent<CanvasGroup>(), 0, transitionDurartion)
+                .setOnComplete(() =>
+                {
+                    blackTransition.gameObject.SetActive(false);
+                });
+            });
+    }
+
+    public void ShowScreen(ScreenType screenType)
     {
         currentScreenType = screenType;
 
@@ -54,6 +87,8 @@ public class ScreenController : MonoBehaviour
 
         currentScreen = GetScreen(screenType);
         currentScreen.Show();
+
+        Debug.Log("Show Screen: " + screenType);
     }
 
     private IScreen GetScreen(ScreenType screenType)

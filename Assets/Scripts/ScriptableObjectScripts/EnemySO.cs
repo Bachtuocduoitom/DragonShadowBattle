@@ -13,8 +13,4 @@ public class EnemySO : ScriptableObject
     public float maxMana;
     public float powerScale;
     public List<Transform> skillPrefabList;
-
-    public float skill1Tracktime;
-    public float skill2Tracktime;
-    public float skill3Tracktime;
 }

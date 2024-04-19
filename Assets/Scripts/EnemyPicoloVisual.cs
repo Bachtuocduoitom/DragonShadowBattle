@@ -7,6 +7,10 @@ using UnityEngine;
 public class EnemyPicoloVisual : MonoBehaviour
 {
 
+    private const string ATTACK_1 = "attack_1";
+    private const string ATTACK_2 = "attack_2";
+    private const string ATTACK_3 = "attack_3";
+
     [SerializeField] private Enemy enemy;
 
     [SerializeField] private AnimationReferenceAsset idle;
@@ -14,10 +18,6 @@ public class EnemyPicoloVisual : MonoBehaviour
     [SerializeField] private AnimationReferenceAsset skill1;
     [SerializeField] private AnimationReferenceAsset skill2;
 
-    private EnemySO enemySO;
-    private float skill1Tracktime;
-    private float skill2Tracktime;
-    private float skill3Tracktime;
 
     public enum State
     {
@@ -40,15 +40,27 @@ public class EnemyPicoloVisual : MonoBehaviour
         skeletonAnimation = GetComponent<SkeletonAnimation>();
         spineAnimationState = skeletonAnimation.AnimationState;
 
+        skeletonAnimation.state.Event += SkeletonAnimation_Event;
+
         state = State.Idle;
         enemy.OnUseSkill += Enemy_OnUseSkill;
 
-        enemySO = DataManager.Instance.GetCurrentEnemySO();
-        skill1Tracktime = enemySO.skill1Tracktime;
-        skill2Tracktime = enemySO.skill2Tracktime;
-        skill3Tracktime = enemySO.skill3Tracktime;
+    }
 
-
+    private void SkeletonAnimation_Event(TrackEntry trackEntry, Spine.Event e)
+    {
+        switch (e.Data.Name)
+        {
+            case ATTACK_1: 
+                enemy.useSkill();
+                break;
+            case ATTACK_2: 
+                enemy.useSkill();
+                break;
+            case ATTACK_3 : 
+                enemy.useSkill();
+                break;
+        }
     }
 
     private void Update()
@@ -74,27 +86,15 @@ public class EnemyPicoloVisual : MonoBehaviour
                 break;
             case State.UseSkill1:
                 SetAnimation(skill0, false);
-                if (trayAnimation.trackTime > skill1Tracktime && triggerToUseSkill)
-                {
-                    enemy.useSkill();
-                    triggerToUseSkill = false;
-                }
+                
                 break;
             case State.UseSkill2:
                 SetAnimation(skill1, false);
-                if (trayAnimation.trackTime > skill2Tracktime && triggerToUseSkill)
-                {
-                    enemy.useSkill();
-                    triggerToUseSkill = false;
-                }
+                
                 break;
             case State.UseSkill3:
                 SetAnimation(skill2, false);
-                if (trayAnimation.trackTime > skill3Tracktime && triggerToUseSkill)
-                {
-                    enemy.useSkill();
-                    triggerToUseSkill = false;
-                }
+                
                 break;
         }
 

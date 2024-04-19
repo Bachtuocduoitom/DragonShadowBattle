@@ -161,7 +161,7 @@ public class Enemy : MonoBehaviour
 
     private void UseRandomSkill()
     {
-        int randomSkillIndex = UnityEngine.Random.Range(0, 2); 
+        int randomSkillIndex = UnityEngine.Random.Range(0, 3); 
         currentSkill = (EnemySkillypes)randomSkillIndex;
 
         OnUseSkill?.Invoke(currentSkill);
@@ -204,6 +204,9 @@ public class Enemy : MonoBehaviour
                 enemySkill.ScaleDamageDependOnEnemyScalePower(powerScale);
                 break;
         }
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.skillFly);
     }
 
     public EnemySO GetEnemySO()
@@ -230,6 +233,10 @@ public class Enemy : MonoBehaviour
     public void Die()
     {
         GameManager.Instance.UpdateGameState(GameManager.State.Victory);
+
+        // Play sound
+        AudioManager.Instance.PlaySFX(AudioManager.Instance.enemyDieDie);
+
         Destroy(gameObject);
     }
 

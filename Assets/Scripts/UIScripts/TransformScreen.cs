@@ -43,7 +43,9 @@ public class TransformScreen : MonoBehaviour, IScreen
         {
             if (!canPlay) return;
 
+            SceneController.Instance.LoadGameplayScene();
 
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         transparentLeftButton.onClick.AddListener(() =>
@@ -109,6 +111,7 @@ public class TransformScreen : MonoBehaviour, IScreen
     {
         if (!DataManager.Instance.IsTransformLocked(currentTransform - 1))
         {
+            // Unlock the transform successfully
             if (DataManager.Instance.GetGoldAmount() >= cost)
             {
                 DataManager.Instance.UnlockTransform(currentTransform, cost);
@@ -126,14 +129,16 @@ public class TransformScreen : MonoBehaviour, IScreen
                 // Update the list
                 CardTransform cardTransform = (CardTransform)circularScrollingList.GetFocusingBox();
                 cardTransform.UnlockTransform();
+
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.cheer);
             } else
             {
-                
+                // Not enough gold
                 unlockPopup.SetUnlockText(false, currentTransform);
             }
         } else
         {
-            
+            // Already unlocked
             unlockPopup.SetUnlockText(false, currentTransform);
         }
 
@@ -141,7 +146,7 @@ public class TransformScreen : MonoBehaviour, IScreen
 
     private void GoldAmountTouchable_OnTouchGoldAmount()
     {
-        ScreenController.Instance.ShowScreen(ScreenController.ScreenType.CoinsScreen);
+        ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.CoinsScreen);
     }
 
     public void InitializeTheList()
@@ -202,8 +207,7 @@ public class TransformScreen : MonoBehaviour, IScreen
     private void PlayAnimationMoveIn()
     {
         // Character wheel Zoom in
-        LeanTween.scale(characterWheel.gameObject, new Vector3(1f, 1f, 1f), 1f)
-            .setFrom(new Vector3(0.8f, 0.8f, 0.8f));
+        characterWheel.PlayMoveInTween();
 
         // Circular scrolling list move in
         Vector3 circularScrollLocalPos = circularScrollingList.gameObject.GetComponent<RectTransform>().localPosition;
@@ -220,5 +224,10 @@ public class TransformScreen : MonoBehaviour, IScreen
         {
             canPlay = true;
         });
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

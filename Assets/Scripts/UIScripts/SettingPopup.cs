@@ -24,8 +24,8 @@ public class SettingPopup : MonoBehaviour, IScreen
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        musicButton.image.sprite = musicButtonTurnOnSprite;
-        soundButton.image.sprite = soundButtonTurnOnSprite;
+        musicButton.image.sprite = DataManager.Instance.IsMusicOn() ? musicButtonTurnOnSprite : musicButtonTurnOffSprite;
+        soundButton.image.sprite = DataManager.Instance.IsSoundOn() ? soundButtonTurnOnSprite : soundButtonTurnOffSprite;
     }
 
     private void Start()
@@ -33,23 +33,57 @@ public class SettingPopup : MonoBehaviour, IScreen
         settingButton.onClick.AddListener(() =>
         {
             animator.SetTrigger(CLICKSETTING);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         soundButton.onClick.AddListener(() =>
         {
             Debug.Log("Sound");
-            soundButton.image.sprite = soundButton.image.sprite == soundButtonTurnOnSprite ? soundButtonTurnOffSprite : soundButtonTurnOnSprite;
+            if (soundButton.image.sprite == soundButtonTurnOnSprite)
+            {
+                AudioManager.Instance.TurnOffSFX();
+                soundButton.image.sprite = soundButtonTurnOffSprite;
+
+                DataManager.Instance.TurnOffSound();
+            }
+            else
+            {
+                AudioManager.Instance.TurnOnSFX();
+                soundButton.image.sprite = soundButtonTurnOnSprite;
+                
+                DataManager.Instance.TurnOnSound();
+            }
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         musicButton.onClick.AddListener(() =>
         {
             Debug.Log("Music");
-            musicButton.image.sprite = musicButton.image.sprite == musicButtonTurnOnSprite ? musicButtonTurnOffSprite : musicButtonTurnOnSprite;
+            if (musicButton.image.sprite == musicButtonTurnOnSprite)
+            {
+                AudioManager.Instance.TurnOffMusic();
+                musicButton.image.sprite = musicButtonTurnOffSprite;
+
+                DataManager.Instance.TurnOffMusic();
+            }
+            else
+            {
+                AudioManager.Instance.TurnOnMusic();
+                musicButton.image.sprite = musicButtonTurnOnSprite;
+
+                DataManager.Instance.TurnOnMusic();
+            }
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         moreGameButton.onClick.AddListener(() =>
         {
             Debug.Log("More Game");
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         blackBackroundTouchable.OnTouchBlackBackground += () =>
@@ -68,5 +102,10 @@ public class SettingPopup : MonoBehaviour, IScreen
     public void Show()
     {
         gameObject.SetActive(true);
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }

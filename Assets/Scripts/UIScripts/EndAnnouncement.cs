@@ -50,4 +50,9 @@ public class EndAnnouncement : MonoBehaviour, IScreen
     {
         gameObject.SetActive(false);
     }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
+    }
 }

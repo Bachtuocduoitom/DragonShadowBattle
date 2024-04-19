@@ -123,6 +123,7 @@ public class GameManager : MonoBehaviour
         ItemSpawner.Instance.StartSpawning();
         playScreen.StartGamePlay();
 
+        AudioManager.Instance.PlayGameplayMusic();
     }
 
     private void HandleVictory()

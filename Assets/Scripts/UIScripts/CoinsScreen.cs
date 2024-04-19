@@ -11,14 +11,17 @@ public class CoinsScreen : MonoBehaviour, IScreen
     [SerializeField] private GoldAmountTouchable goldAmountTouchable;
     [SerializeField] private CoinCardUI coinCardUI;
     [SerializeField] private RectTransform content;
-    [SerializeField] private TextMeshProUGUI goldText; 
+    [SerializeField] private TextMeshProUGUI goldText;
+    [SerializeField] private UnlockPopup unlockPopup;
     [SerializeField] private CoinsCardSO[] coinsCardSOList;
 
     private void Awake()
     {
         shopButton.onClick.AddListener(() =>
         {
-            ScreenController.Instance.ShowScreen(ScreenController.ScreenType.TransformScreen);
+            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.TransformScreen);
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
        
 
@@ -31,6 +34,12 @@ public class CoinsScreen : MonoBehaviour, IScreen
         {
             CoinsCardSO coinsCardSO = coinsCardSOList[i];
             CoinCardUI coinCardUIInstance = Instantiate(coinCardUI, content);
+            coinCardUIInstance.GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                unlockPopup.Show();
+
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+            });
             coinCardUIInstance.SetCoinsCardSO(coinsCardSO);
             switch (i)
             {
@@ -62,5 +71,10 @@ public class CoinsScreen : MonoBehaviour, IScreen
     public void Show()
     {
         gameObject.SetActive(true);
+    }
+
+    public bool IsShowed()
+    {
+        return gameObject.activeSelf;
     }
 }
