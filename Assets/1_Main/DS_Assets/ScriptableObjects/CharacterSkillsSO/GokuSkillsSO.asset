@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286e0a30266f6b44eaddd53bc79b92b3, type: 3}
+  m_Name: GokuSkillsSO
+  m_EditorClassIdentifier: 
+  skillDonPrefab: {fileID: 2822241304929760407, guid: ba13ec0b45587124a87b3db9d043a5bc, type: 3}
+  skillSpamPrefab: {fileID: 3804730335509272391, guid: 2cfb13f87a7ef3e40ad2f232d83f7f9d, type: 3}
+  skillKamehaPrefab: {fileID: 3543155340038411128, guid: 2c2fbedc715c0e24894eaea6d19c6968, type: 3}
+  skillSpiritBoomPrefab: {fileID: 8123444335556341349, guid: 25dceaf48a3b1144980c9cff0e32c8f8, type: 3}
+  skillDragonPrefab: {fileID: 758560369959363593, guid: 2756425061577aa40811d9550ad694f5, type: 3}

@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 286e0a30266f6b44eaddd53bc79b92b3, type: 3}
+  m_Name: VegetaSkillsSO
+  m_EditorClassIdentifier: 
+  skillDonPrefab: {fileID: 2822241304929760407, guid: 942658c35a157c14abe041ece7907208, type: 3}
+  skillSpamPrefab: {fileID: 3804730335509272391, guid: 75f5f00b269c451418dbfc20c3dad6de, type: 3}
+  skillKamehaPrefab: {fileID: 3543155340038411128, guid: 96bc7012c40f2bb4f8f29de91e0bf8ec, type: 3}
+  skillSpiritBoomPrefab: {fileID: 8123444335556341349, guid: 8e56ca84a80334e4c8c8887cdd45e56b, type: 3}
+  skillDragonPrefab: {fileID: 758560369959363593, guid: 1178243f5d1ef6b4db2dc920c8815c47, type: 3}
