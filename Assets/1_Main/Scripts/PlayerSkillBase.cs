@@ -57,9 +57,9 @@ public class PlayerSkillBase : MonoBehaviour
 
     public void ScaleDamageDependOnEnemyScalePower(float enemyScalePower)
     {
-        Debug.Log("Enemy scale power: " + enemyScalePower + ", Skill damage: " + damage);
+        //Debug.Log("Enemy scale power: " + enemyScalePower + ", Skill damage: " + damage);
         damage = damage * enemyScalePower;
-        Debug.Log("New skill damage: " + damage);
+        //Debug.Log("New skill damage: " + damage);
     }
 
     public float GetDamage()

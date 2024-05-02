@@ -88,7 +88,6 @@ public class ScreenController : MonoBehaviour
         currentScreen = GetScreen(screenType);
         currentScreen.Show();
 
-        Debug.Log("Show Screen: " + screenType);
     }
 
     private IScreen GetScreen(ScreenType screenType)
@@ -107,6 +106,4 @@ public class ScreenController : MonoBehaviour
                 return null;
         }
     }
-
-
 }

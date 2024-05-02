@@ -364,6 +364,13 @@ public class Player : MonoBehaviour
     public void UseBeanItem()
     {
         OnUseBeanItem?.Invoke();
+
+        // Play particle effect
+        buff_01.gameObject.SetActive(true);
+        LeanTween.delayedCall(1.5f, () =>
+        {
+            buff_01.gameObject.SetActive(false);
+        });
     }
 
 

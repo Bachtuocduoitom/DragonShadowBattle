@@ -12,13 +12,16 @@ public class DataManager : MonoBehaviour
 
     // Keys constants
     private const string GOLD_AMOUNT = "GOLD_AMOUNT";
+    private const string BEAN_AMOUNT = "BEAN_AMOUNT";
     private const string CURRENT_CHARACTER = "CURRENT_CHARACTER";
     private const string UNLOCKED_GOKU_TRANSFORM_COUNT = "UNLOCKED_GOKU_TRANSFORM_COUNT";
     private const string UNLOCKED_VEGETA_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
     private const string UNLOCKED_TRUNK_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
     private const string UNLOCKED_GOHAN_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
-    private const string CURRENT_ENEMY = "CURRENT_ENEMY";
-    private const string PREVIOUS_ENEMY = "PREVIOUS_ENEMY";
+    private const string CURRENT_LEVEL = "CURRENT_LEVEL";
+    private const string PREVIOUS_LEVEL = "PREVIOUS_LEVEL";
+    private const string LIKED_PAGE = "LIKED_PAGE";
+    private const string WATCHED_VIDEO = "WATCHED_VIDEO";
 
     // Player Constant Values
     public const string GOKU_CHARACTER = "GOKUZ";
@@ -38,6 +41,7 @@ public class DataManager : MonoBehaviour
 
     // Game Instance Values
     private int goldAmount = 96969696;
+    private int beanAmount = 10;
     private string currentCharacter = GOKU_CHARACTER;
     private string preCharacter = GOKU_CHARACTER;
     private List<int> unlockedGokuTransform = new() { 0, 1, 2, 3, 4, 5, 6, 7};
@@ -45,8 +49,10 @@ public class DataManager : MonoBehaviour
     private List<int> unlockedTrunkTransform = new() { 0, 1 };
     private List<int> unlockedGohanTransform = new() { 0, 1 };
     private List<int> unlockedVezitoTransform = new() { 0, 1 };
-    private int currentEnemy = 1;
-    private int preEnemy = 0;
+    private int currentLevel = 1;
+    private int preLevel = 0;
+    private bool likedPage = false;
+    private bool watchedVideo = false;
 
     // Player List Transform SO
     [SerializeField] private List<TransformSO> gokuTransformSOList;
@@ -60,6 +66,8 @@ public class DataManager : MonoBehaviour
     // Enemy List Transform SO
     [SerializeField] private List<EnemySO> enemySOList;
     [SerializeField] private List<Transform> enemyPrefabList;
+
+    [SerializeField] private List<LevelData> levelDatas;
 
     // Data in one level
     private int highestTransformIndex = 0;
@@ -84,24 +92,68 @@ public class DataManager : MonoBehaviour
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
-        Debug.Log(currentEnemy);
     }
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+
+
+    // Gold amount
     public int GetGoldAmount()
     {
         return goldAmount;
     }
-
     public void IncreaseGoldAmount(int amount)
     {
         goldAmount += amount;
-    }
 
+        Save();
+    }
     public void DecreaseGoldAmount(int amount)
     {
         goldAmount -= amount;
+
+        Save();
+    }
+    public bool TryDecreaseGoldAmount(int amount)
+    {
+        if (goldAmount < amount)
+        {
+            return false;
+        }
+
+        goldAmount -= amount;
+        Save();
+        return true;
     }
 
+    // Bean amount
+    public int GetBeanAmount()
+    {
+        return beanAmount;
+    }
+    public void IncreaseBeanAmount(int amount)
+    {
+        beanAmount += amount;
+
+        Save();
+    }
+    public bool TryDecreaseBeanAmount(int amount)
+    {
+        if (beanAmount < amount)
+        {
+            return false;
+        } 
+
+        beanAmount -= amount;
+        Save();
+        return true;
+
+    }
+
+    // Character
     public List<int> GetUnLockedTransforms()
     {
         switch (currentCharacter)
@@ -172,144 +224,6 @@ public class DataManager : MonoBehaviour
             currentCharacter = preCharacter;
         }
     }
-    public int GetCurrentEnemy()
-    {
-        return currentEnemy;
-    }
-    public int GetPreEnemy()
-    {
-        return preEnemy;
-    }
-    public void UpdataCurrentEnemyAndPreEnemyOnVictory()
-    {
-        if (currentEnemy < enemyPrefabList.Count)
-        {
-            preEnemy = currentEnemy;
-            currentEnemy++;
-        } 
-
-        Save();
-    }
-    public void UpdataCurrentEnemyAndPreEnemyOnGaneOver()
-    {
-        preEnemy = currentEnemy;
-
-        if (currentEnemy - 2 >= 1)
-        {
-            currentEnemy -= 2;
-        } else
-        {
-            currentEnemy = 1;
-        }
-
-        Save();
-    }
-    public List<EnemySO> GetEnemySOList()
-    {
-        return enemySOList;
-    }
-    public EnemySO GetCurrentEnemySO()
-    {
-        return enemySOList[currentEnemy - 1];
-    }
-
-    public bool HasNextTransform(int currentTransform)
-    {
-        switch (currentCharacter)
-        {
-            case GOKU_CHARACTER:
-                return unlockedGokuTransform.Contains(currentTransform + 1);
-            case VEGETA_CHARACTER:
-                return unlockedVegetaTransform.Contains(currentTransform + 1);
-            case TRUNK_CHARACTER:
-                return unlockedTrunkTransform.Contains(currentTransform + 1);
-            case GOHAN_CHARACTER:
-                return unlockedGohanTransform.Contains(currentTransform + 1);
-            case VEZITO_CHARACTER:
-                return unlockedVezitoTransform.Contains(currentTransform + 1);
-            default:
-                return false;
-        }
-    }
-
-    public bool IsTransformLocked(int transformIndex)
-    {
-        switch (currentCharacter)
-        {
-            case GOKU_CHARACTER:
-                return !unlockedGokuTransform.Contains(transformIndex);
-            case VEGETA_CHARACTER:
-                return !unlockedVegetaTransform.Contains(transformIndex);
-            case TRUNK_CHARACTER:
-                return !unlockedTrunkTransform.Contains(transformIndex);
-            case GOHAN_CHARACTER:
-                return !unlockedGohanTransform.Contains(transformIndex);
-            case VEZITO_CHARACTER:
-                return !unlockedVezitoTransform.Contains(transformIndex);
-            default:
-                return false;
-        }
-    }
-
-    public void UnlockTransform(int transformIndex, int cost)
-    {
-        switch (currentCharacter)
-        {
-            case GOKU_CHARACTER:
-                unlockedGokuTransform.Add(transformIndex);
-                break;
-            case VEGETA_CHARACTER:
-                unlockedVegetaTransform.Add(transformIndex);
-                break;
-            case TRUNK_CHARACTER:
-                unlockedTrunkTransform.Add(transformIndex);
-                break;
-            case GOHAN_CHARACTER:
-                unlockedGohanTransform.Add(transformIndex);
-                break;
-        }
-
-        DataManager.Instance.DecreaseGoldAmount(cost);
-        //Save();
-    }
-
-    public TransformSO GetTransformSO(int transformIndex)
-    {
-        switch (currentCharacter)
-        {
-            case GOKU_CHARACTER:
-                return gokuTransformSOList[transformIndex];
-            case VEGETA_CHARACTER:
-                return vegetaTransformSOList[transformIndex];
-            case TRUNK_CHARACTER:
-                return trunkTransformSOList[transformIndex];
-            case GOHAN_CHARACTER:
-                return gohanTransformSOList[transformIndex];
-            case VEZITO_CHARACTER:
-                return vezitoTransformSOList[transformIndex];
-            default:
-                return null;
-        }
-    }
-
-    public Sprite GetSpriteForCurrentTransform(int currentTransform)
-    {
-        switch (currentCharacter)
-        {
-            case GOKU_CHARACTER:
-                return gokuTransformSOList[currentTransform].transformSprite;
-            case VEGETA_CHARACTER:
-                return vegetaTransformSOList[currentTransform].transformSprite;
-            case TRUNK_CHARACTER:
-                return trunkTransformSOList[currentTransform].transformSprite;
-            case GOHAN_CHARACTER:
-                return gohanTransformSOList[currentTransform].transformSprite;
-            case VEZITO_CHARACTER:
-                return vezitoTransformSOList[currentTransform].transformSprite;
-            default:
-                return null;
-        }
-    }
     public Sprite GetSpriteForCharacter(string characterName)
     {
         switch (characterName)
@@ -329,24 +243,159 @@ public class DataManager : MonoBehaviour
         }
     }
 
+    // Level
+    public int GetCurrentLevel()
+    {
+        return currentLevel;
+    }
+    public int GetPreLevel()
+    {
+        return preLevel;
+    }
+    public void UpdataCurrentLevelAndPreLevelOnVictory()
+    {
+        if (currentLevel < levelDatas.Count)
+        {
+            preLevel = currentLevel;
+            currentLevel++;
+        } 
+
+        Save();
+    }
+    public void UpdateCurrentLevelAndPreLevelOnGameOver()
+    {
+        preLevel = currentLevel;
+
+        if (currentLevel - 2 >= 1)
+        {
+            currentLevel -= 2;
+        } else
+        {
+            currentLevel = 1;
+        }
+
+        Save();
+    }
+
+    // Enemy
+    public List<EnemySO> GetEnemySOList()
+    {
+        return enemySOList;
+    }
+    public EnemySO GetCurrentEnemySO()
+    {
+        return enemySOList[currentLevel - 1];
+    }
     public Sprite GetSpriteForCurrentEnemy()
     {
-        if (enemySOList.Count >= currentEnemy)
+        if (enemySOList.Count >= currentLevel)
         {
-            return enemySOList[currentEnemy - 1].sprite;
+            return enemySOList[currentLevel - 1].sprite;
         }
         return null;
     }
- 
     public Transform GetPrefabForCurrentEnemy()
     {
-        if (enemyPrefabList.Count >= currentEnemy)
+        if (enemyPrefabList.Count >= currentLevel)
         {
-            return enemyPrefabList[currentEnemy - 1];
+            return enemyPrefabList[currentLevel - 1];
         }
         return null;
     }
 
+    // Transform
+    public bool HasNextTransform(int currentTransform)
+    {
+        switch (currentCharacter)
+        {
+            case GOKU_CHARACTER:
+                return unlockedGokuTransform.Contains(currentTransform + 1);
+            case VEGETA_CHARACTER:
+                return unlockedVegetaTransform.Contains(currentTransform + 1);
+            case TRUNK_CHARACTER:
+                return unlockedTrunkTransform.Contains(currentTransform + 1);
+            case GOHAN_CHARACTER:
+                return unlockedGohanTransform.Contains(currentTransform + 1);
+            case VEZITO_CHARACTER:
+                return unlockedVezitoTransform.Contains(currentTransform + 1);
+            default:
+                return false;
+        }
+    }
+    public bool IsTransformLocked(int transformIndex)
+    {
+        switch (currentCharacter)
+        {
+            case GOKU_CHARACTER:
+                return !unlockedGokuTransform.Contains(transformIndex);
+            case VEGETA_CHARACTER:
+                return !unlockedVegetaTransform.Contains(transformIndex);
+            case TRUNK_CHARACTER:
+                return !unlockedTrunkTransform.Contains(transformIndex);
+            case GOHAN_CHARACTER:
+                return !unlockedGohanTransform.Contains(transformIndex);
+            case VEZITO_CHARACTER:
+                return !unlockedVezitoTransform.Contains(transformIndex);
+            default:
+                return false;
+        }
+    }
+    public void UnlockTransform(int transformIndex)
+    {
+        switch (currentCharacter)
+        {
+            case GOKU_CHARACTER:
+                unlockedGokuTransform.Add(transformIndex);
+                break;
+            case VEGETA_CHARACTER:
+                unlockedVegetaTransform.Add(transformIndex);
+                break;
+            case TRUNK_CHARACTER:
+                unlockedTrunkTransform.Add(transformIndex);
+                break;
+            case GOHAN_CHARACTER:
+                unlockedGohanTransform.Add(transformIndex);
+                break;
+        }
+
+        Save();
+    }
+    public TransformSO GetTransformSO(int transformIndex)
+    {
+        switch (currentCharacter)
+        {
+            case GOKU_CHARACTER:
+                return gokuTransformSOList[transformIndex];
+            case VEGETA_CHARACTER:
+                return vegetaTransformSOList[transformIndex];
+            case TRUNK_CHARACTER:
+                return trunkTransformSOList[transformIndex];
+            case GOHAN_CHARACTER:
+                return gohanTransformSOList[transformIndex];
+            case VEZITO_CHARACTER:
+                return vezitoTransformSOList[transformIndex];
+            default:
+                return null;
+        }
+    }
+    public Sprite GetSpriteForCurrentTransform(int currentTransform)
+    {
+        switch (currentCharacter)
+        {
+            case GOKU_CHARACTER:
+                return gokuTransformSOList[currentTransform].transformSprite;
+            case VEGETA_CHARACTER:
+                return vegetaTransformSOList[currentTransform].transformSprite;
+            case TRUNK_CHARACTER:
+                return trunkTransformSOList[currentTransform].transformSprite;
+            case GOHAN_CHARACTER:
+                return gohanTransformSOList[currentTransform].transformSprite;
+            case VEZITO_CHARACTER:
+                return vezitoTransformSOList[currentTransform].transformSprite;
+            default:
+                return null;
+        }
+    }
     public float GetMaxHealthForCurrentTransform(int currentTransform)
     {
         if (gokuTransformSOList.Count >= currentTransform)
@@ -355,7 +404,6 @@ public class DataManager : MonoBehaviour
         }
         return 0;
     }
-
     public float GetMaxManaForCurrentTransform(int currentTransform)
     {
         if (gokuTransformSOList.Count >= currentTransform)
@@ -364,7 +412,6 @@ public class DataManager : MonoBehaviour
         }
         return 0;
     }
-
     public float GetPowerScaleForCurrentTransform(int currentTransform)
     {
         if (gokuTransformSOList.Count >= currentTransform)
@@ -373,7 +420,6 @@ public class DataManager : MonoBehaviour
         }
         return 0;
     }
-
     public float GetManaCostForSkill(Player.PlayerSkill skill)
     {
         switch (skill)
@@ -392,7 +438,6 @@ public class DataManager : MonoBehaviour
         }
         return 0;
     }
-
     public List<TransformSO> GetCurrentTransformSOList()
     {
         switch (currentCharacter)
@@ -427,7 +472,7 @@ public class DataManager : MonoBehaviour
     }
     public void SetLevelBonus(int bonus)
     {
-        levelBonus = (bonus + 1) * (currentEnemy + 1) * 10;
+        levelBonus = (bonus + 1) * (currentLevel + 1) * 10;
     }
     public int GetEarnCoin()
     {
@@ -474,6 +519,24 @@ public class DataManager : MonoBehaviour
         isSoundOn = false;
     }
 
+    // Like Page and Watched Video 
+    public bool IsLikedPage()
+    {
+        return likedPage;
+    }
+    public void SetLikedPage()
+    {
+        likedPage = true;
+    }
+    public bool IsWatchedVideo()
+    {
+        return watchedVideo;
+    }
+    public void SetWatchedVideo()
+    {
+        watchedVideo = true;
+    }
+
 
     // Save Methods
     public void SaveUnlockedGokuTransformList()
@@ -516,13 +579,14 @@ public class DataManager : MonoBehaviour
     public void Save()
     {
         PlayerPrefs.SetInt(GOLD_AMOUNT, goldAmount);
+        PlayerPrefs.SetInt(BEAN_AMOUNT, beanAmount);
         PlayerPrefs.SetString(CURRENT_CHARACTER, currentCharacter);
         SaveUnlockedGokuTransformList();
         SaveUnlockedVegetaTransformList();
         SaveUnlockedTrunkTransformList();
         SaveUnlockedGohanTransformList();
-        PlayerPrefs.SetInt(CURRENT_ENEMY, currentEnemy);
-        PlayerPrefs.SetInt(PREVIOUS_ENEMY, preEnemy);
+        PlayerPrefs.SetInt(CURRENT_LEVEL, currentLevel);
+        PlayerPrefs.SetInt(PREVIOUS_LEVEL, preLevel);
     }
 
 
@@ -575,6 +639,15 @@ public class DataManager : MonoBehaviour
             PlayerPrefs.SetInt(GOLD_AMOUNT, goldAmount);
         }
 
+        if (PlayerPrefs.HasKey(BEAN_AMOUNT))
+        {
+            beanAmount = PlayerPrefs.GetInt(BEAN_AMOUNT);
+        }
+        else
+        {
+            PlayerPrefs.SetInt(BEAN_AMOUNT, beanAmount);
+        }
+
         if (PlayerPrefs.HasKey(CURRENT_CHARACTER))
         {
             currentCharacter = PlayerPrefs.GetString(CURRENT_CHARACTER);
@@ -618,22 +691,22 @@ public class DataManager : MonoBehaviour
             SaveUnlockedGohanTransformList();
         }
 
-        if (PlayerPrefs.HasKey(CURRENT_ENEMY))
+        if (PlayerPrefs.HasKey(CURRENT_LEVEL))
         {
-            currentEnemy = PlayerPrefs.GetInt(CURRENT_ENEMY);
+            currentLevel = PlayerPrefs.GetInt(CURRENT_LEVEL);
         }
         else
         {
-            PlayerPrefs.SetInt(CURRENT_ENEMY, currentEnemy);
+            PlayerPrefs.SetInt(CURRENT_LEVEL, currentLevel);
         }
 
-        if (PlayerPrefs.HasKey(PREVIOUS_ENEMY))
+        if (PlayerPrefs.HasKey(PREVIOUS_LEVEL))
         {
-            preEnemy = PlayerPrefs.GetInt(PREVIOUS_ENEMY);
+            preLevel = PlayerPrefs.GetInt(PREVIOUS_LEVEL);
         }
         else
         {
-            PlayerPrefs.SetInt(PREVIOUS_ENEMY, preEnemy);
+            PlayerPrefs.SetInt(PREVIOUS_LEVEL, preLevel);
         }
     }
 }

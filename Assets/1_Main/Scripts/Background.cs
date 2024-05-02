@@ -6,7 +6,7 @@ public class Background : MonoBehaviour
 {
 
     [SerializeField] private SpriteRenderer imgBackgroud;
-    private float speed = 0.2f;
+    private float speed = 0.5f;
 
     void Update()
     {

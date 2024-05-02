@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformName: 15
   transformSprite: {fileID: 21300000, guid: 4b2969dfecfa8ee4c97ceb8c989ce4e1, type: 3}
-  maxHealth: 1400
+  maxHealth: 328050
   maxMana: 1000
-  powerScale: 5
+  powerScale: 3280.5
   power: 400000000
   cost: 1800000

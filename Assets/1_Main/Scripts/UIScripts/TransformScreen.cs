@@ -120,9 +120,9 @@ public class TransformScreen : MonoBehaviour, IScreen
         if (!DataManager.Instance.IsTransformLocked(currentTransform - 1))
         {
             // Unlock the transform successfully
-            if (DataManager.Instance.GetGoldAmount() >= cost)
+            if (DataManager.Instance.TryDecreaseGoldAmount(cost))
             {
-                DataManager.Instance.UnlockTransform(currentTransform, cost);
+                DataManager.Instance.UnlockTransform(currentTransform);
 
                 // Update card info
                 cardInfo.unlockCurrentTransform();
@@ -183,6 +183,7 @@ public class TransformScreen : MonoBehaviour, IScreen
     {
         CardTransform cardTransform = (CardTransform) newFocusedBox;
         UpdateCardInfoAndPlayerTransformImage(cardTransform.Content);
+
     }
 
     private void UpdateCardInfoAndPlayerTransformImage(int currentTransform)

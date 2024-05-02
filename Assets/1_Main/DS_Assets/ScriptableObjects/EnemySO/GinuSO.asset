@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Ginu
   sprite: {fileID: 21300000, guid: eacf6e0dd3ab0934a8ae97be31f89522, type: 3}
-  maxHealth: 800
+  maxHealth: 900
   maxMana: 100
-  powerScale: 3
+  powerScale: 9
   skillPrefabList:
   - {fileID: 7392211599138738618, guid: 1b1f6c162f340004d856387e820dfbcd, type: 3}
   - {fileID: 7392211599138738618, guid: 84a2861af6128b34481f514d988d65bd, type: 3}

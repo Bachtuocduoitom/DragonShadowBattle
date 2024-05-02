@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class PlayerArmor : MonoBehaviour
 {
+
+    [SerializeField] ParticleSystem twinkArmor;
+
     private float timeToDisappear = 10f;
+
+
+    private void Start()
+    {
+        twinkArmor.Play();    
+    }
 
     private void Update()
     {
@@ -12,6 +21,7 @@ public class PlayerArmor : MonoBehaviour
         if (timeToDisappear <= 0)
         {
             Player.Instance.OutOfArmor();
+            twinkArmor.Stop();
             Destroy(gameObject);
         }
     }

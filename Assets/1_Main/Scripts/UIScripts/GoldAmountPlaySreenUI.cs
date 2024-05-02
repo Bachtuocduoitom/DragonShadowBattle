@@ -12,13 +12,18 @@ public class GoldAmountPlaySreenUI : MonoBehaviour
 
     private void Start()
     {
-        formattedMoney = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
-        goldAmountText.text = formattedMoney;
+        UpdateGoldAmount();
     }
 
     private string FormatMoney(int amount)
     {
         string formattedM = string.Format("{0:#,###}", amount.ToString());
         return formattedM.Replace(",", ".");
+    }
+
+    public void UpdateGoldAmount()
+    {
+        formattedMoney = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+        goldAmountText.text = formattedMoney;
     }
 }

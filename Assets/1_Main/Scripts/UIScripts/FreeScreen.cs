@@ -15,10 +15,25 @@ public class FreeScreen : MonoBehaviour, IScreen
     [SerializeField] private GoldAmountTouchable goldAmountTouchable;
     [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private SpinPopup spinPopup;
+    [SerializeField] private RewardPopup rewardPopup;
 
 
     private void Awake()
     {
+        if (DataManager.Instance.IsLikedPage())
+        {
+            likeCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+
+            DataManager.Instance.SetLikedPage();
+        }
+
+        if (DataManager.Instance.IsWatchedVideo())
+        {
+            watchVideosCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+
+            DataManager.Instance.SetWatchedVideo();
+        }
+
         menuButton.onClick.AddListener(() =>
         {
             ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.MenuScreen);
@@ -40,11 +55,45 @@ public class FreeScreen : MonoBehaviour, IScreen
 
         likeCard.onClick.AddListener(() =>
         {
+            if (!(DataManager.Instance.IsLikedPage()))
+            {
+                rewardPopup.Show();
+                rewardPopup.SetRewardText(500);
+
+                // Increase gold amount
+                DataManager.Instance.IncreaseGoldAmount(500);
+
+                // Update gold text
+                goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+
+                // Disable card
+                likeCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+                DataManager.Instance.SetLikedPage();
+
+
+            }
+
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
         watchVideosCard.onClick.AddListener(() =>
         {
+            if (!(DataManager.Instance.IsWatchedVideo()))
+            {
+                rewardPopup.Show();
+                rewardPopup.SetRewardText(200);
+
+                // Increase gold amount
+                DataManager.Instance.IncreaseGoldAmount(200);
+
+                // Update gold text
+                goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+
+                // Disable card
+                watchVideosCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+                DataManager.Instance.SetWatchedVideo();
+            }
+
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 

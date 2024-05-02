@@ -16,6 +16,6 @@ MonoBehaviour:
   transformSprite: {fileID: 21300000, guid: 74ff7c7146f410247bca2dc9a0ab5d0c, type: 3}
   maxHealth: 300
   maxMana: 300
-  powerScale: 2
+  powerScale: 3
   power: 16000
   cost: 2000

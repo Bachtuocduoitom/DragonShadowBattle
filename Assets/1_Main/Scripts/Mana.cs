@@ -41,6 +41,8 @@ public class Mana
     {
         maxMana = newMaxMana;
         currentMana = maxMana;
+
+        manaRegenAmount = maxMana * 0.01f;
     }
 
     public void ResetMana()

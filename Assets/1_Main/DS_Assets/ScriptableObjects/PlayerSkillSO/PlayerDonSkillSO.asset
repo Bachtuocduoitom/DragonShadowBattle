@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Skill Don
   speed: 25
-  damage: 10
+  damage: 6.25
   manaCost: 20
   sizeType: 1

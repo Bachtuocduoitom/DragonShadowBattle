@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour
     {
         playScreen.ShowEndAnnouncement(true);
         ItemSpawner.Instance.StopSpawning();
-        DataManager.Instance.UpdataCurrentEnemyAndPreEnemyOnVictory();
+        DataManager.Instance.UpdataCurrentLevelAndPreLevelOnVictory();
 
         LeanTween.delayedCall(3f, () =>
         {
@@ -143,7 +143,7 @@ public class GameManager : MonoBehaviour
     {
         playScreen.ShowEndAnnouncement(false);
         ItemSpawner.Instance.StopSpawning();
-        DataManager.Instance.UpdataCurrentEnemyAndPreEnemyOnGaneOver();
+        DataManager.Instance.UpdateCurrentLevelAndPreLevelOnGameOver();
 
         // Reset data level when player lose
         DataManager.Instance.ResetDataLevel();

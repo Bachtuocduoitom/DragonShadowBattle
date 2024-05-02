@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Skill Kameha
   speed: 20
-  damage: 30
+  damage: 31
   manaCost: 40
   sizeType: 2
