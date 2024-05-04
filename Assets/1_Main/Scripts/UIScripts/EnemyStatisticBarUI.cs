@@ -68,4 +68,10 @@ public class EnemyStatisticBarUI : MonoBehaviour
 
         health.OnOutOfHealth += Health_OutOfHealth;
     }
+
+    public void RemoveEnemy()
+    {
+        enemy.OnHitDamage -= Enemy_Damage;
+        health.OnOutOfHealth -= Health_OutOfHealth;
+    }
 }

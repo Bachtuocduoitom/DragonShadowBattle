@@ -23,6 +23,7 @@ public class BoxItem : MonoBehaviour
     public void ShowGreenFrame()
     {
         greenFrame.gameObject.SetActive(true);
+        LeanTween.alphaCanvas(greenFrame.GetComponent<CanvasGroup>(), 0.1f, 0.5f).setLoopPingPong();
     }
 
     public void HideGreenFrame()

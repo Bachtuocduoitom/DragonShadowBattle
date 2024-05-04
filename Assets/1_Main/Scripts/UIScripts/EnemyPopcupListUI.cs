@@ -14,28 +14,27 @@ public class EnemyPopcupListUI : MonoBehaviour
     [SerializeField] private EnemyPopcupUI enemyPopcupUIPrefab;
 
     private List<EnemyPopcupUI> enemyPopcupUIList = new List<EnemyPopcupUI>();
-    private List<EnemySO> enemySOList;
 
     private int currentEnemy;
     private int targetEnemy;
     private Vector3 targetPosition;
 
-    private float speed = 500f;
+    private float speed;
+    private const float speedDown = 900f;
+    private const float speedUp = 500f;
 
     private float waitingToMoveTimer = 1f;
     private bool startMoveEnemyList = false;
-    private float delayTime = 0.5f;
+    private const float delayTime = 0.5f;
 
     private bool playSound = true;
 
     private void Start()
     {
-        enemySOList = DataManager.Instance.GetEnemySOList();
-        
-        for (int i = 1; i < enemySOList.Count + 1; i++)
+        for (int i = 1; i < DataManager.Instance.GetNumberOfLevel() + 1; i++)
         {
             EnemyPopcupUI enemyPopcupUI = Instantiate(enemyPopcupUIPrefab, transform);
-            enemyPopcupUI.SetEnemyImage(enemySOList[i-1].sprite);
+            enemyPopcupUI.SetEnemyImages(DataManager.Instance.GetLevelEnemySpriteList(i));
             enemyPopcupUI.SetNumberText(i);
             enemyPopcupUI.transform.localPosition = new Vector3(0, i * Y_OFFSET_BETWEEN_ENEMY, 0);
             enemyPopcupUIList.Add(enemyPopcupUI);
@@ -44,6 +43,16 @@ public class EnemyPopcupListUI : MonoBehaviour
         currentEnemy = DataManager.Instance.GetPreLevel();
         targetEnemy = DataManager.Instance.GetCurrentLevel();
 
+        if (currentEnemy > targetEnemy)
+        {
+            speed = speedDown;
+        }
+        else
+        {
+            speed = speedUp;
+        }
+
+        // Set target position and current position of enemy list
         targetPosition = transform.localPosition + Vector3.down * targetEnemy * Y_OFFSET_BETWEEN_ENEMY;
         transform.localPosition = transform.localPosition + Vector3.down * currentEnemy * Y_OFFSET_BETWEEN_ENEMY;
 

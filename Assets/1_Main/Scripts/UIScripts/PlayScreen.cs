@@ -18,6 +18,11 @@ public class PlayScreen : MonoBehaviour, IScreen
         enemyStatisticBarUI.SetEnemy();
     }
 
+    public void OnAnEnemyDie()
+    {
+        enemyStatisticBarUI.RemoveEnemy();
+    }
+
     public void ShowEndAnnouncement(bool isVictory)
     {
         if (isVictory)

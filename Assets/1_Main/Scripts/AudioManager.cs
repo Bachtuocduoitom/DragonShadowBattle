@@ -46,6 +46,18 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (!DataManager.Instance.IsMusicOn())
+        {
+            TurnOffMusic();
+        }
+        if (!DataManager.Instance.IsSoundOn())
+        {
+            TurnOffSFX();
+        }
+    }
+
 
     public void PlayMenuMusic()
     {

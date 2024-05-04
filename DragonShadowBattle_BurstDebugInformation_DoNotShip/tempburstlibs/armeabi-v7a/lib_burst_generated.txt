@@ -31,6 +31,9 @@ Library: C:\Users\DEV_25\DragonShadowBattle\Temp\BurstOutput\tempburstlibs\armea
 --assembly-defines=Unity.Collections.LowLevel.ILSupport;
 --assembly-defines=Unity.VisualScripting.Antlr3.Runtime;
 --assembly-defines=Unity.Burst.Unsafe;
+--assembly-defines=DOTween;
+--assembly-defines=DOTweenPro;
+--assembly-defines=DemiLib;
 --assembly-defines=System.Runtime;
 --assembly-defines=netstandard;
 --assembly-defines=Mono.Security;

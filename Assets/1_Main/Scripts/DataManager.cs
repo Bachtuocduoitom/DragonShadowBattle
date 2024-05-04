@@ -10,7 +10,7 @@ public class DataManager : MonoBehaviour
     public static DataManager Instance { get; private set; }
 
 
-    // Keys constants
+    #region Key Constants
     private const string GOLD_AMOUNT = "GOLD_AMOUNT";
     private const string BEAN_AMOUNT = "BEAN_AMOUNT";
     private const string CURRENT_CHARACTER = "CURRENT_CHARACTER";
@@ -22,6 +22,7 @@ public class DataManager : MonoBehaviour
     private const string PREVIOUS_LEVEL = "PREVIOUS_LEVEL";
     private const string LIKED_PAGE = "LIKED_PAGE";
     private const string WATCHED_VIDEO = "WATCHED_VIDEO";
+    #endregion
 
     // Player Constant Values
     public const string GOKU_CHARACTER = "GOKUZ";
@@ -67,14 +68,17 @@ public class DataManager : MonoBehaviour
     [SerializeField] private List<EnemySO> enemySOList;
     [SerializeField] private List<Transform> enemyPrefabList;
 
+    // Level Data
     [SerializeField] private List<LevelData> levelDatas;
 
     // Data in one level
     private int highestTransformIndex = 0;
     private int levelBonus = 0;
     private int earnCoin = 0;
+    private int currentEnemyIndex = 0;
 
-    private bool isMusicOn = true;
+    // Music and Sound, can modify here to turn on or off music and sound
+    private bool isMusicOn = false;
     private bool isSoundOn = true;
 
     private void Awake()
@@ -278,6 +282,31 @@ public class DataManager : MonoBehaviour
     }
 
     // Enemy
+    public int GetNumberOfLevel()
+    {
+        return levelDatas.Count;
+    }
+    public List<Sprite> GetLevelEnemySpriteList(int level)
+    {
+        return levelDatas[level - 1].enemySprites;
+    }
+    public List<Sprite> GetEnemySpritesForCurrentLevel()
+    {
+        return levelDatas[currentLevel - 1].enemySprites;
+    }
+    public Transform GetEnemyPrefabForCurrentLevel()
+    {
+        return levelDatas[currentLevel - 1].enemies[currentEnemyIndex];
+    }
+    public bool HasNextEnemyPrefabForCurrentLevel()
+    {
+        currentEnemyIndex++;
+        if (currentEnemyIndex < levelDatas[currentLevel - 1].enemies.Count)
+        {
+            return true;
+        }
+        return false;
+    }
     public List<EnemySO> GetEnemySOList()
     {
         return enemySOList;
@@ -486,14 +515,23 @@ public class DataManager : MonoBehaviour
     {
         return GetLevelBonus() + GetEarnCoin();
     }
+    public int GetCurrentEnemyIndex()
+    {
+        return currentEnemyIndex;
+    }
+    public void IncreaseCurrentEnemyIndex()
+    {
+        currentEnemyIndex++;
+    }
     public void ResetDataLevel()
     {
         highestTransformIndex = 0;
         levelBonus = 0;
         earnCoin = 0;
+        currentEnemyIndex = 0;
     }
 
-    // Music and Sound
+    #region Music and Sound
     public bool IsMusicOn()
     {
         return isMusicOn;
@@ -518,8 +556,9 @@ public class DataManager : MonoBehaviour
     {
         isSoundOn = false;
     }
+    #endregion
 
-    // Like Page and Watched Video 
+    #region Like and Watched Video
     public bool IsLikedPage()
     {
         return likedPage;
@@ -536,9 +575,9 @@ public class DataManager : MonoBehaviour
     {
         watchedVideo = true;
     }
+    #endregion
 
-
-    // Save Methods
+    #region Save Methods
     public void SaveUnlockedGokuTransformList()
     {
         for (int i = 0; i < unlockedGokuTransform.Count; i++)
@@ -588,9 +627,9 @@ public class DataManager : MonoBehaviour
         PlayerPrefs.SetInt(CURRENT_LEVEL, currentLevel);
         PlayerPrefs.SetInt(PREVIOUS_LEVEL, preLevel);
     }
+    #endregion
 
-
-    // Load Methods
+    #region Load Methods
     public void LoadUnlockedGokuTransformList()
     {
         unlockedGokuTransform.Clear();
@@ -709,4 +748,5 @@ public class DataManager : MonoBehaviour
             PlayerPrefs.SetInt(PREVIOUS_LEVEL, preLevel);
         }
     }
+    #endregion
 }

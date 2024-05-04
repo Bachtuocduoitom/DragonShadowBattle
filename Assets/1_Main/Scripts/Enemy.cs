@@ -241,7 +241,8 @@ public class Enemy : MonoBehaviour
 
     public void Die()
     {
-        GameManager.Instance.UpdateGameState(GameManager.State.Victory);
+        state = State.Die;
+        GameManager.Instance.HandleOnEnemyDie();
 
         // Play explosion
         ExplosionSpawner.Instance.PlayEnemyExplosion(transform.position);

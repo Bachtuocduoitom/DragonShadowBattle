@@ -12,7 +12,7 @@ public class CoinsScreen : MonoBehaviour, IScreen
     [SerializeField] private CoinCardUI coinCardUI;
     [SerializeField] private RectTransform content;
     [SerializeField] private TextMeshProUGUI goldText;
-    [SerializeField] private UnlockPopup unlockPopup;
+    [SerializeField] private PurchasePopup purchasePopup;
     [SerializeField] private CoinsCardSO[] coinsCardSOList;
 
     private void Awake()
@@ -36,9 +36,10 @@ public class CoinsScreen : MonoBehaviour, IScreen
             CoinCardUI coinCardUIInstance = Instantiate(coinCardUI, content);
             coinCardUIInstance.GetComponentInChildren<Button>().onClick.AddListener(() =>
             {
-                unlockPopup.Show();
+                purchasePopup.PurchaseSomething(this.HandlePurchase, coinsCardSO);
 
                 AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        
             });
             coinCardUIInstance.SetCoinsCardSO(coinsCardSO);
             switch (i)
@@ -62,6 +63,25 @@ public class CoinsScreen : MonoBehaviour, IScreen
         }
     }
 
+    public void HandlePurchase(CoinsCardSO coinsCardSO)
+    {
+        switch (coinsCardSO.cardType)
+        {
+            case CoinCardUI.CoinsCardType.BeanAndGold:
+                DataManager.Instance.IncreaseGoldAmount(coinsCardSO.goldGainText);
+                DataManager.Instance.IncreaseBeanAmount(coinsCardSO.goldGainText);
+                goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+                break;
+            case CoinCardUI.CoinsCardType.Gold:
+                DataManager.Instance.IncreaseGoldAmount(coinsCardSO.goldGainText);
+                goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+                break;
+            case CoinCardUI.CoinsCardType.Ads:
+                DataManager.Instance.IncreaseGoldAmount(coinsCardSO.goldGainText);
+                goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
+                break;
+        }
+    }
 
     public void Hide()
     {

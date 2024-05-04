@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - CircleLightSpinWheel
   layers:
   - Default
   - TransparentFX

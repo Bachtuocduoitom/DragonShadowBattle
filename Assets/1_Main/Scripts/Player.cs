@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
         rb= GetComponent<Rigidbody2D>();
         state = State.Idle;
 
-        // Get Player skill prefab
+        // Assign Player skill prefab
         CharacterSkillsSO characterSkillsSO = DataManager.Instance.GetCurrentCharacterSkillsPrefabs();
         skill1Prefab = characterSkillsSO.skillDonPrefab;
         skillSpamPrefab = characterSkillsSO.skillSpamPrefab;
@@ -155,6 +155,7 @@ public class Player : MonoBehaviour
         rb.MovePosition(newPosition);
     }
 
+    #region Collision
     private void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.TryGetComponent(out EnemySkill enemySkill))
@@ -234,13 +235,11 @@ public class Player : MonoBehaviour
                     break;
             }
             item.HitPlayer();
-
         }
-        
     }
+    #endregion
 
-    
-    // Player spawn skill
+    #region Spawn Skill
     public void SpawnSpamSkill()
     {
         // Gọi hàm SpawnBulletsWithDelay với một khoảng thời gian delay giữa mỗi viên đạn
@@ -346,8 +345,7 @@ public class Player : MonoBehaviour
         currentArmor = armorTransform.GetComponent<PlayerArmor>();
 
     }
-
-
+    #endregion
 
 
     // Handle UI Button Click
@@ -374,8 +372,7 @@ public class Player : MonoBehaviour
     }
 
 
-
-    // Fire event to update Visual
+    #region Handle Skill
     public void UseSkill()
     {
         switch (currentSkill)
@@ -397,6 +394,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+
     private void UseSpamSkill()
     {
         OnChangeState?.Invoke(State.UseNormalSkill, PlayerSkill.SpamSKill);
@@ -497,8 +495,8 @@ public class Player : MonoBehaviour
             buff_01.gameObject.SetActive(false);
         });
     }
+    #endregion
 
-    
 
     public void BackToIdleState()
     {

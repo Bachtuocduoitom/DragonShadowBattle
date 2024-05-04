@@ -77,9 +77,6 @@ public class MenuScreen : MonoBehaviour, IScreen
     {
         gokuImage.transform.LeanMoveLocal(new Vector3(gokuImage.transform.localPosition.x + 30, gokuImage.transform.localPosition.y - 30, 0), 1.5f).setLoopPingPong();
         cellImage.transform.LeanMoveLocal(new Vector3(cellImage.transform.localPosition.x + 30, cellImage.transform.localPosition.y + 30, 0), 1.5f).setLoopPingPong();
-
-        LeanTween.rotateAroundLocal(spinButton.gameObject, Vector3.forward, 360f, 2f)
-        .setLoopClamp();
     }
 
     public void Show()

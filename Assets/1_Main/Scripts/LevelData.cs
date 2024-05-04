@@ -7,4 +7,5 @@ public class LevelData
 {
     public int level;
     public List<Transform> enemies;
+    public List<Sprite> enemySprites;
 }

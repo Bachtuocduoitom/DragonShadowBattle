@@ -38,7 +38,9 @@ public class PreStartGameplayScreen : MonoBehaviour, IScreen
 
         playButton.onClick.AddListener(() =>
         {
-           GameManager.Instance.UpdateGameState(GameManager.State.WaitingToStartGameplay);
+            playButton.interactable = false;
+
+            GameManager.Instance.UpdateGameState(GameManager.State.WaitingToStartGameplay);
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });

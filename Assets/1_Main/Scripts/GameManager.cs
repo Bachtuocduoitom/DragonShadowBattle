@@ -34,9 +34,13 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+        }
         Instance = this;
 
-       state = State.ChooseEnemy;
+        state = State.ChooseEnemy;
     }
 
     private void Start()
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour
 
     private void HandleGameplay()
     {
-        Transform enemyTransform = Instantiate(DataManager.Instance.GetPrefabForCurrentEnemy(), enemyInitPosition, Quaternion.identity);
+        Transform enemyTransform = Instantiate(DataManager.Instance.GetEnemyPrefabForCurrentLevel(), enemyInitPosition, Quaternion.identity);
         Player.Instance.StartGameplay();
         ItemSpawner.Instance.StartSpawning();
         playScreen.StartGamePlay();
@@ -153,6 +157,25 @@ public class GameManager : MonoBehaviour
             playScreen.Hide();
             endScreen.ShowGameOver();
         });
+    }
+
+    public void HandleOnEnemyDie()
+    {
+        playScreen.OnAnEnemyDie();
+
+        if (DataManager.Instance.HasNextEnemyPrefabForCurrentLevel())
+        {
+            LeanTween.delayedCall(waitingForEnemyMoveInTime, () =>
+            {
+                Transform enemyTransform = Instantiate(DataManager.Instance.GetEnemyPrefabForCurrentLevel(), enemyInitPosition, Quaternion.identity);
+                Player.Instance.StartGameplay();
+                playScreen.StartGamePlay();
+            });
+        }
+        else
+        {
+            UpdateGameState(State.Victory);
+        }
     }
 
     public bool IsGamePlay()

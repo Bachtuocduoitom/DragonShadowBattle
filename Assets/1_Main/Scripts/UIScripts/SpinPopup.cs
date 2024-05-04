@@ -30,7 +30,8 @@ public class SpinPopup : MonoBehaviour, IScreen
             spinWheel.Spin();
             canSpin = false;
             onSpin = true;
-
+            spinButton.gameObject.SetActive(false);
+            
             LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -20f, 0.2f)
             .setLoopPingPong(2)
             .setOnComplete(() =>
@@ -53,7 +54,7 @@ public class SpinPopup : MonoBehaviour, IScreen
                     });
                 });
             });
-
+            
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
@@ -67,6 +68,8 @@ public class SpinPopup : MonoBehaviour, IScreen
 
         spinWheel.OnSpinWheelFinished += (itemSprite, describe) =>
         {
+            spinButton.gameObject.SetActive(false);
+            
             spinButton.GetComponent<SpinButton>().SetAdsSpin();
             LeanTween.delayedCall(0.5f, () =>
             {
