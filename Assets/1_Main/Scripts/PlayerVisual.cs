@@ -24,15 +24,15 @@ public class PlayerVisual : MonoBehaviour
     private SkeletonAnimation skeletonAnimation;
     private Spine.AnimationState spineAnimationState;
 
-    private bool triggerToTransform = true;
-
-    private Player.PlayerSkill currentSkill;
-
-    private string currentAnimation;
     private TrackEntry trayCurrentAnimation;
     private TrackEntry trayAddedAnimation;
     private Player.State state;
+    private Player.PlayerSkill currentSkill;
+
+    private string currentAnimation;
+
     private bool triggerToUseSkill = true;
+    private bool triggerToTransform = true;
 
     private void Start()
     {
@@ -101,7 +101,6 @@ public class PlayerVisual : MonoBehaviour
 
     private void SetAnimationOnUpdate()
     {
-        
         // Handle Transform animation
         if (state == Player.State.Transform && trayCurrentAnimation.trackTime > 0.7f && triggerToTransform)
         {
@@ -134,10 +133,6 @@ public class PlayerVisual : MonoBehaviour
                 }
             }
         }
-
-        
-        
-
     }
 
     private void Player_OnChangeState(Player.State playerState, Player.PlayerSkill skill)
@@ -165,8 +160,6 @@ public class PlayerVisual : MonoBehaviour
         }
         state = playerState;
     }
-
-
 
     private void SetUseNormalSkillAnimation(Player.PlayerSkill skill)
     {

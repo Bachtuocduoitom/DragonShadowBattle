@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Trunk_8SO
   m_EditorClassIdentifier: 
   transformName: 8
-  transformSprite: {fileID: 21300000, guid: daa49a31421da8d4490e89943564eed6, type: 3}
+  transformSprite: {fileID: -1883063138, guid: 9f1e53ffcb375014ca8bf4afa9dc63e6, type: 3}
   maxHealth: 8100
   maxMana: 1000
   powerScale: 81

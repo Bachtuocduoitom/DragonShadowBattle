@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: Skill Dragon
   speed: 30
-  damage: 25
+  damage: 50
   manaCost: 180
   sizeType: 1

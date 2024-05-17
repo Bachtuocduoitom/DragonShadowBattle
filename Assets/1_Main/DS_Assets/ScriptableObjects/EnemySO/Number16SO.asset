@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3492b0b88e27ba048a741d64bbfa2f7b, type: 3}
+  m_Name: Number16SO
+  m_EditorClassIdentifier: 
+  enemyName: Number16
+  sprite: {fileID: 161408966, guid: 2864cdb4d204a1b4392251a72dd834f7, type: 3}
+  maxHealth: 8100
+  maxMana: 100
+  powerScale: 81
+  skillPrefabList:
+  - {fileID: 6747839664254842900, guid: 65a2a9625fe5df2438a78b8c49420e8f, type: 3}
+  - {fileID: 6747839664254842900, guid: 9d5442ff4aa08744a902e82de1bf36b9, type: 3}
+  - {fileID: 6747839664254842900, guid: 2c7e1a19421fc9348b5e079e3a333df6, type: 3}

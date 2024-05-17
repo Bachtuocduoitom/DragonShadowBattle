@@ -69,14 +69,12 @@ public class MenuScreen : MonoBehaviour, IScreen
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
 
-
-        ActionEffects();
     }
 
     private void ActionEffects()
     {
-        gokuImage.transform.LeanMoveLocal(new Vector3(gokuImage.transform.localPosition.x + 30, gokuImage.transform.localPosition.y - 30, 0), 1.5f).setLoopPingPong();
-        cellImage.transform.LeanMoveLocal(new Vector3(cellImage.transform.localPosition.x + 30, cellImage.transform.localPosition.y + 30, 0), 1.5f).setLoopPingPong();
+        //gokuImage.transform.LeanMoveLocal(new Vector3(gokuImage.transform.localPosition.x + 30, gokuImage.transform.localPosition.y - 30, 0), 1.5f).setLoopPingPong();
+        //cellImage.transform.LeanMoveLocal(new Vector3(cellImage.transform.localPosition.x + 30, cellImage.transform.localPosition.y + 30, 0), 1.5f).setLoopPingPong();
     }
 
     public void Show()

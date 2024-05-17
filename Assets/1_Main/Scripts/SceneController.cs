@@ -28,7 +28,7 @@ public class SceneController : MonoBehaviour
 
     public void LoadGameplayScene()
     {
-        // Reset current character back to the Goku
+        // Reset current character 
         DataManager.Instance.ResetCurrentCharacter();
 
         SceneManager.LoadScene("GamePlayScene");

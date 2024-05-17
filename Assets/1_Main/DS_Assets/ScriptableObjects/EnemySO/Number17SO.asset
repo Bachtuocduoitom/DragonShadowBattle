@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Number17SO
   m_EditorClassIdentifier: 
   enemyName: Number17
-  sprite: {fileID: 21300000, guid: 54896cbbd9fe01a4b9ebeb153957b56e, type: 3}
+  sprite: {fileID: 127822317, guid: 2864cdb4d204a1b4392251a72dd834f7, type: 3}
   maxHealth: 4050
   maxMana: 100
   powerScale: 40.5
   skillPrefabList:
-  - {fileID: 7392211599138738618, guid: e6a8ab1e662543b4b970377e2fca0494, type: 3}
-  - {fileID: 6747839664254842900, guid: 595e58a6dc7815d4bac2fe68aaee8070, type: 3}
-  - {fileID: 346810037827799838, guid: d08c10b188b3ae24785c154d3e0cc65d, type: 3}
+  - {fileID: 6747839664254842900, guid: ad80ab9ea75711a448bff1fd28483691, type: 3}
+  - {fileID: 6747839664254842900, guid: c87261973d15448409694688432428c2, type: 3}
+  - {fileID: 6747839664254842900, guid: fcd96af61947f6f46919a032a2f31ad1, type: 3}

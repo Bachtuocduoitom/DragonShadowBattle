@@ -38,7 +38,7 @@ public class EnemySkill : MonoBehaviour
     public void HitPlayer()
     {
         // Play explosion effect
-        ExplosionSpawner.Instance.PlayEnemySkillExposion(sizeType, transform.position);
+        ExplosionSpawner.Instance.PlayEnemySkillExposion(GetSizeType(), GetPosition());
 
         Destroy(gameObject);
     }
@@ -46,9 +46,8 @@ public class EnemySkill : MonoBehaviour
     public void ScaleDamageDependOnEnemyScalePower(float enemyScalePower)
     {
         //Debug.Log("Enemy scale power: " + enemyScalePower + ", Skill damage: " + damage);
-        damage = damage * enemyScalePower;
+        damage *= enemyScalePower;
         //Debug.Log("New skill damage: " + damage);
-
     }
 
     public float GetDamage()

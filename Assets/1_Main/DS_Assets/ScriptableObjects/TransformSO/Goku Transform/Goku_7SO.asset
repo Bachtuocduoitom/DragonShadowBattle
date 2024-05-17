@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Goku_7SO
   m_EditorClassIdentifier: 
   transformName: 7
-  transformSprite: {fileID: 21300000, guid: 1739d22e38fa70c4ca89f5cb8e9bcca7, type: 3}
+  transformSprite: {fileID: -2077676559, guid: 847b8d3f6e3636c46810936551edd2c6, type: 3}
   maxHealth: 4050
   maxMana: 450
   powerScale: 40.5

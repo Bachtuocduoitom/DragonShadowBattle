@@ -25,7 +25,7 @@ public class PlayerResultCard : MonoBehaviour
         myCoinsText.gameObject.SetActive(false);
     }   
 
-    public void ShowResultSequentially()
+    public void ShowResultSequentially(bool isVictory)
     {
         highestTransform.sprite = DataManager.Instance.GetHighestTransform();
         highestTransform.SetNativeSize();
@@ -35,9 +35,16 @@ public class PlayerResultCard : MonoBehaviour
         LeanTween.delayedCall(timeToWait, () =>
         {
             if (gameObject == null) return;
-
+            
             levelBonusText.gameObject.SetActive(true);
-            levelBonusText.text = Util.GetCurrencyFormat(DataManager.Instance.GetLevelBonus());
+            if (isVictory)
+            {
+                levelBonusText.text = Util.GetCurrencyFormat(DataManager.Instance.GetLevelBonus());
+            }
+            else
+            {
+                levelBonusText.text = "0";
+            }
 
             // Play sound
             AudioManager.Instance.PlaySFX(AudioManager.Instance.cach);
@@ -57,7 +64,14 @@ public class PlayerResultCard : MonoBehaviour
             if (gameObject == null) return;
 
             totalScoreText.gameObject.SetActive(true);
-            totalScoreText.text = Util.GetCurrencyFormat(DataManager.Instance.GetTotalScore());
+            if (isVictory)
+            {
+                totalScoreText.text = Util.GetCurrencyFormat(DataManager.Instance.GetTotalScore());
+            }
+            else
+            {
+                totalScoreText.text = Util.GetCurrencyFormat(DataManager.Instance.GetEarnCoin());
+            }
 
             // Play sound
             AudioManager.Instance.PlaySFX(AudioManager.Instance.cach);
@@ -70,7 +84,7 @@ public class PlayerResultCard : MonoBehaviour
             myCoinsText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
 
             // Play sound
-            AudioManager.Instance.PlaySFX(AudioManager.Instance.cach);
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.coinPay);
         });
     }
 }

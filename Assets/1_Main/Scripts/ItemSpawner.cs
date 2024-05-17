@@ -28,14 +28,14 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private GoldItemArray goldItemArray;
 
     private float waitingToSpawnTimer;
-    private float waitingToSpawnTimerMax = 12f;
+    private const float waitingToSpawnTimerMax = 12f;
     private int numberOfItemsToSpawn;
     private int currentSpawnItem = -1;
 
-    private const float xSpawnPosition = 12f;
+    private float xSpawnPosition;
     private float ySpawnPosition;
-    private float ySpawnPositionMin = -4f;
-    private float ySpawnPositionMax = 4f;
+    private const float ySpawnPositionMin = -4f;
+    private const float ySpawnPositionMax = 4f;
 
     private bool canSpawn = false;
 
@@ -52,6 +52,8 @@ public class ItemSpawner : MonoBehaviour
     private void Start()
     {
         waitingToSpawnTimer = waitingToSpawnTimerMax;
+
+        xSpawnPosition = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x / 2 + 10f;
     }
 
     private void Update()
@@ -133,7 +135,7 @@ public class ItemSpawner : MonoBehaviour
                 item.SetItemType(ItemType.Gold);
                 break;
             case 5:
-                GoldItemArray goldItemArray = Instantiate(this.goldItemArray);
+                GoldItemArray goldItemArray = Instantiate(this.goldItemArray, new Vector2(xSpawnPosition, 0f), Quaternion.identity);
                 break;
         }
     }

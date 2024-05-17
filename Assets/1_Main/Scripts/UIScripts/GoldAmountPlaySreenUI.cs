@@ -13,6 +13,7 @@ public class GoldAmountPlaySreenUI : MonoBehaviour
     private void Start()
     {
         UpdateGoldAmount();
+        Player.Instance.OnHitGold += UpdateGoldAmount;
     }
 
     private string FormatMoney(int amount)

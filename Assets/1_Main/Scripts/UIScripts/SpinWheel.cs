@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class SpinWheel : MonoBehaviour
 {
-    public Action<Sprite, string> OnSpinWheelFinished;
+    public Action<BoxItem.BoxItemTypes, Sprite, string, string> OnSpinWheelFinished;
 
     [SerializeField] private GameObject listBoxItem;
     [SerializeField] public AnimationCurve animationCurve;
 
-    private float numberOfItem = 8f;
-    private float timeToSpin = 5f;
-    private float numberofCircleRotate = 5;
+    private readonly float numberOfItem = 8f;
+    private readonly float timeToSpin = 5f;
+    private readonly int numberofCircleRotate = 5;
+    private readonly float CIRCLE = 360f;
 
-    private float CIRCLE = 360f;
     public float anglePerItem;
-
     private float targetItem;
 
     private void Start()
@@ -35,6 +34,7 @@ public class SpinWheel : MonoBehaviour
     {
         float startAngle = transform.eulerAngles.z;
         targetItem = UnityEngine.Random.Range(0, numberOfItem);
+        //targetItem = 4.62f;
         float endAngle = startAngle + numberofCircleRotate * CIRCLE + targetItem * anglePerItem;
         float t = 0f;
 
@@ -47,15 +47,28 @@ public class SpinWheel : MonoBehaviour
         }
 
         // Get the item that the wheel is pointing to
-        int index = Mathf.RoundToInt(Mathf.Abs(transform.eulerAngles.z % 360) / anglePerItem);
+        float index = Mathf.Abs(transform.eulerAngles.z % 360) / anglePerItem;
+        if ( Mathf.RoundToInt(index) - index < 0.33f || Mathf.RoundToInt(index) - index < 0)
+        {
+            index = Mathf.RoundToInt(index);
+        } else
+        {
+            index = Mathf.RoundToInt(index) - 1;
+        }
+
         if (index == numberOfItem)
         {
             index = 0;
         }
-        
-        listBoxItem.transform.GetChild(index).GetComponent<BoxItem>().ShowGreenFrame();
-        OnSpinWheelFinished?.Invoke(listBoxItem.transform.GetChild(index).GetComponent<BoxItem>().GetSpriteImage(),
-            listBoxItem.transform.GetChild(index).GetComponent<BoxItem>().GetDescribe());
+        BoxItem boxItem = listBoxItem.transform.GetChild((int)index).GetComponent<BoxItem>();
+        if (boxItem != null)
+        {
+            boxItem.ShowGreenFrame();
+        }
+        OnSpinWheelFinished?.Invoke(boxItem.GetBoxItemType(),
+            boxItem.GetSpriteImage(),
+            boxItem.GetDescribe(),
+            boxItem.GetReward());
     }
 
     public void ResetWheel()

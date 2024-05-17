@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public Action<PlayerSkill, float> OnTryUseSkill;
     public Action OnUseBeanItem;
     public Action<ItemSpawner.ItemType> OnCollectItem;
+    public Action OnHitGold;
 
     public enum State
     {
@@ -48,6 +49,8 @@ public class Player : MonoBehaviour
     private State state;
     private int numberOfTurnPerSpamSkill = 5;
     private float delayPerSpawnSkillTurn = 0.01f;
+    private float borderX;
+    private float spawnPositionX;
 
     private int currentSkin = 0;
     private PlayerSkill currentSkill = PlayerSkill.None;
@@ -103,6 +106,12 @@ public class Player : MonoBehaviour
         skillKamehaPrefab = characterSkillsSO.skillKamehaPrefab;
         skillSpiritBoomPrefab = characterSkillsSO.skillSpiritBoomPrefab;
         skillDragonPrefab = characterSkillsSO.skillDragonPrefab;
+
+        // Get border X
+        borderX = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x * 5 / 12;
+        spawnPositionX = - Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x * 1 / 2;
+
+        transform.position = new Vector3(spawnPositionX, transform.position.y, 0);
     }
 
     private void Update()
@@ -139,7 +148,7 @@ public class Player : MonoBehaviour
 
                 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
                 touchPosition.z = 0;
-                if (touchPosition.x > 4.5f) return;
+                if (touchPosition.x > borderX) return;
                 lastPosition = new Vector3(touchPosition.x, touchPosition.y, 0);
             }
         }
@@ -158,6 +167,10 @@ public class Player : MonoBehaviour
     #region Collision
     private void OnTriggerEnter2D(Collider2D collider)
     {
+        if (!GameManager.Instance.IsGamePlay()) return;
+
+        if (state == State.UseGatherSkill && currentSkill == PlayerSkill.SpiritBoomSkill) return;
+       
         if (collider.TryGetComponent(out EnemySkill enemySkill))
         {
             // Check if player has armor
@@ -169,7 +182,7 @@ public class Player : MonoBehaviour
             // Play sound
             AudioManager.Instance.PlayPlayerHit();
 
-        } else if (collider.TryGetComponent(out Item item))
+        } else if (collider.TryGetComponent(out ItemBase item))
         {
             ItemSpawner.ItemType itemType = item.GetItemType();
             switch (itemType)
@@ -229,6 +242,7 @@ public class Player : MonoBehaviour
                 case ItemSpawner.ItemType.Gold:
                     DataManager.Instance.IncreaseGoldAmount(200);
                     DataManager.Instance.AddEarnCoin();
+                    OnHitGold?.Invoke();
 
                     // Play sound
                     AudioManager.Instance.PlaySFX(AudioManager.Instance.coinEarn);
@@ -469,7 +483,6 @@ public class Player : MonoBehaviour
 
         currentSkin++;
         DataManager.Instance.SetHighestTransform(currentSkin);
-        DataManager.Instance.SetLevelBonus(currentSkin);
 
         // Fire event to update UI
         float newMaxHealth = DataManager.Instance.GetMaxHealthForCurrentTransform(currentSkin);
@@ -490,7 +503,7 @@ public class Player : MonoBehaviour
 
         // Play particle effect
         buff_01.gameObject.SetActive(true);
-        LeanTween.delayedCall(0.5f, () =>
+        LeanTween.delayedCall(1.2f, () =>
         {
             buff_01.gameObject.SetActive(false);
         });
@@ -522,7 +535,7 @@ public class Player : MonoBehaviour
 
     public void StartGameplay()
     {
-        //get enemy
+        // Get enemy
         enemy = GameObject.FindWithTag(TAG_ENEMY);
     }
 
@@ -541,6 +554,7 @@ public class Player : MonoBehaviour
         ExplosionSpawner.Instance.PlayEnemyExplosion(transform.position);
 
         // Play sound
+        AudioManager.Instance.StopSFX();
         AudioManager.Instance.PlaySFX(AudioManager.Instance.playerDie);
     }
 }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Gohan_9SO
   m_EditorClassIdentifier: 
   transformName: 9
-  transformSprite: {fileID: 21300000, guid: 9589ac04d104d2740895c480380d16fc, type: 3}
+  transformSprite: {fileID: -1534956826, guid: fc5a1edc08aa33e4794d08b4dba6a0a7, type: 3}
   maxHealth: 12150
   maxMana: 1000
   powerScale: 121.5

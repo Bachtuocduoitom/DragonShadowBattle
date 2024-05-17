@@ -6,16 +6,44 @@ using UnityEngine.UI;
 
 public class BoxItem : MonoBehaviour
 {
+
+    public enum BoxItemTypes
+    {
+        LevelReward,
+        BeanReward,
+        CoinReward,
+        AdsReward,
+        Lose
+    }
+
     [SerializeField] private Image image;
     [SerializeField] private TextMeshProUGUI describe;
     [SerializeField] private Image greenFrame;
-
     [SerializeField] private BoxItemSO boxItemSO;
+
+    private LTDescr currentTween;
 
     private void Start()
     {
         image.sprite = boxItemSO.sprite;
-        describe.text = boxItemSO.describe;
+        switch (boxItemSO.boxItemType)
+        {
+            case BoxItemTypes.LevelReward:
+                describe.text = "+" + boxItemSO.describe + " lv";
+                break;
+            case BoxItemTypes.BeanReward:
+                describe.text = "+" + boxItemSO.describe;
+                break;
+            case BoxItemTypes.CoinReward:
+                describe.text = "+" + boxItemSO.describe;
+                break;
+            case BoxItemTypes.AdsReward:
+                describe.text = boxItemSO.describe;
+                break;
+            case BoxItemTypes.Lose:
+                describe.text = boxItemSO.describe;
+                break;
+        }
         
         HideGreenFrame();
     }
@@ -23,7 +51,8 @@ public class BoxItem : MonoBehaviour
     public void ShowGreenFrame()
     {
         greenFrame.gameObject.SetActive(true);
-        LeanTween.alphaCanvas(greenFrame.GetComponent<CanvasGroup>(), 0.1f, 0.5f).setLoopPingPong();
+        currentTween = LeanTween.alphaCanvas(greenFrame.GetComponent<CanvasGroup>(), 0.1f, 0.5f).setLoopPingPong(-1);
+        Debug.Log(currentTween);
     }
 
     public void HideGreenFrame()
@@ -33,11 +62,21 @@ public class BoxItem : MonoBehaviour
 
     public Sprite GetSpriteImage()
     {
-        return image.sprite;
+        return boxItemSO.sprite;
     }
 
     public string GetDescribe()
     {
         return describe.text;
+    }
+
+    public string GetReward()
+    {
+        return boxItemSO.describe;
+    }
+
+    public BoxItemTypes GetBoxItemType()
+    {
+        return boxItemSO.boxItemType;
     }
 }

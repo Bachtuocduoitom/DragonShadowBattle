@@ -149,9 +149,6 @@ public class GameManager : MonoBehaviour
         ItemSpawner.Instance.StopSpawning();
         DataManager.Instance.UpdateCurrentLevelAndPreLevelOnGameOver();
 
-        // Reset data level when player lose
-        DataManager.Instance.ResetDataLevel();
-
         LeanTween.delayedCall(3f, () =>
         {
             playScreen.Hide();

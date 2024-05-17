@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a054e297d1d31984ba9f75dec3849f61, type: 3}
   m_Name: New Coins Card SO
   m_EditorClassIdentifier: 
-  cardIcon: {fileID: 21300000, guid: 340bdf315d4e3184e89fe216be82a0ff, type: 3}
+  cardIcon: {fileID: 1559852143, guid: 6a98e5a0277b55f4fa26e1783b3f44e4, type: 3}
   cardType: 0
   goldGainText: 2000
   cardValueText: 20 bean

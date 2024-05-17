@@ -8,14 +8,5 @@ public class GokuDragonSkill : PlayerSkillBase
     {
         transform.position += Vector3.right * speed * Time.deltaTime;
     }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.TryGetComponent(out EnemySkill enemySkill))
-        {
-            enemySkill.HitPlayer();
-            return;
-
-        }
-    }
+    
 }

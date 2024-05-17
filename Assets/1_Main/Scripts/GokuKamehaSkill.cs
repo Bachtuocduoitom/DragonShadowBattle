@@ -20,22 +20,12 @@ public class GokuKamehaSkill : PlayerSkillBase
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.TryGetComponent(out EnemySkill enemySkill))
-        {
-            enemySkill.HitPlayer();
-            return;
-           
-        }
-    }
-
     public void SetDirection(Vector3 enemyPosition)
     {
-        // get Skill direction
+        // Get Skill direction
         direction = (enemyPosition - transform.position).normalized;
 
-        // let Skill move
+        // Let Skill move
         startMove = true;
         
         trail.Play();
@@ -44,6 +34,8 @@ public class GokuKamehaSkill : PlayerSkillBase
 
     public override void HitEnemy()
     {
+        PlayExplosion();
+
         endMove = true;
         LeanTween.delayedCall(0.5f, () =>
         {

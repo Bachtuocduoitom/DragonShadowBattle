@@ -55,7 +55,6 @@ public class CharacterWheel : MonoBehaviour
                     break;
                 case 4:
                     characterAndBaseUIList[i].MoveRightOnEdgeOfElipse(360);
-                    
                     break;
 
             }
@@ -103,7 +102,6 @@ public class CharacterWheel : MonoBehaviour
                     break;
                 case 3:
                     characterAndBaseUIList[i].MoveLeftOnEdgeOfElipse(113);
-
                     break;
                 case 4:
                     characterAndBaseUIList[i].MoveLeftOnEdgeOfElipse(180);

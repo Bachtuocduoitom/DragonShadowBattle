@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Player;
 
 public class PlayerSkillBase : MonoBehaviour
 {
@@ -40,8 +41,17 @@ public class PlayerSkillBase : MonoBehaviour
     {
         if (collider.TryGetComponent(out EnemySkill enemySkill))
         {
-            ExplosionSpawner.Instance.PlayExplosionMedium(transform.position);
-            Destroy(gameObject);
+            Debug.Log(enemySkill.GetDamage() + " " + damage);
+            if (enemySkill.GetDamage() < this.damage)
+            {
+                enemySkill.HitPlayer();
+            }
+            else
+            {
+                HitEnemy();
+            }
+            //ExplosionSpawner.Instance.PlayExplosionMedium(transform.position);
+            //Destroy(gameObject);
         }
     }
 
@@ -52,14 +62,18 @@ public class PlayerSkillBase : MonoBehaviour
 
     public virtual void HitEnemy()
     {
+        PlayExplosion();
         Destroy(gameObject);
+    }
+
+    public void PlayExplosion()
+    {
+        ExplosionSpawner.Instance.PlayPlayerSkillExposion(GetSizeType(), GetPosition());
     }
 
     public void ScaleDamageDependOnEnemyScalePower(float enemyScalePower)
     {
-        //Debug.Log("Enemy scale power: " + enemyScalePower + ", Skill damage: " + damage);
-        damage = damage * enemyScalePower;
-        //Debug.Log("New skill damage: " + damage);
+        damage *= enemyScalePower;
     }
 
     public float GetDamage()

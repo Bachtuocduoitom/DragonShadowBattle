@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345bd1d104eee754ebcaa8df42ff5240, type: 3}
   m_Name: BoxItem8
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 068f0fbcec8222349b1560194e6ba37c, type: 3}
+  sprite: {fileID: 1664888725, guid: 6a98e5a0277b55f4fa26e1783b3f44e4, type: 3}
   describe: 1 Week
+  boxItemType: 3

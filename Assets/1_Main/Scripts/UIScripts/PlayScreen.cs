@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ public class PlayScreen : MonoBehaviour, IScreen
 
     [SerializeField] EnemyStatisticBarUI enemyStatisticBarUI;
     [SerializeField] EndAnnouncement endAnnouncement;
+
+    private float delayDuration = 0.5f;
 
     private void Start()
     {
@@ -27,11 +30,13 @@ public class PlayScreen : MonoBehaviour, IScreen
     {
         if (isVictory)
         {
-            endAnnouncement.ShowVictory();
+            DOTween.To(() => 0, x => { }, 0, delayDuration)
+            .OnComplete(() => endAnnouncement.ShowVictory());
         }
         else
         {
-            endAnnouncement.ShowGameOver();
+            DOTween.To(() => 0, x => { }, 0, delayDuration)
+            .OnComplete(() => endAnnouncement.ShowGameOver());
         }
     }
 

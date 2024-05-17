@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 345bd1d104eee754ebcaa8df42ff5240, type: 3}
   m_Name: BoxItem3
   m_EditorClassIdentifier: 
-  sprite: {fileID: 21300000, guid: 2476bc190845dac4daaa54e08083bb46, type: 3}
-  describe: +1
+  sprite: {fileID: -511306572, guid: 80e63446388d24243b975e68090d432f, type: 3}
+  describe: 1
+  boxItemType: 1

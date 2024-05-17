@@ -7,7 +7,6 @@ public class CharacterAndBaseUI : MonoBehaviour
 {
 
     [SerializeField] private Image characterImage;
-
     [SerializeField] private ParticleSystem particleStarMoveUp;
 
 
@@ -28,7 +27,6 @@ public class CharacterAndBaseUI : MonoBehaviour
         InitCharacterMoveUpAndDown();
     }
 
-
     private void Start()
     {
         rectTransform = gameObject.GetComponent<RectTransform>();
@@ -41,6 +39,7 @@ public class CharacterAndBaseUI : MonoBehaviour
         else
         {
             currentAngle = Mathf.Acos((rectTransform.anchoredPosition.x - centerX) / a) * Mathf.Rad2Deg;
+            GetComponent<CanvasGroup>().alpha = 0.9f;
         }
 
         // Scale the character depending on the angle
@@ -67,6 +66,16 @@ public class CharacterAndBaseUI : MonoBehaviour
     {
         float time = 0;
         float startAngle = currentAngle;
+        // Fade out a bit
+        if (targetAngle != -90)
+        {
+            FadeOutABit();
+        }
+        else
+        {
+            FadeIn();
+        }
+
         while (time < duration)
         {
             time += Time.deltaTime;
@@ -92,7 +101,7 @@ public class CharacterAndBaseUI : MonoBehaviour
         if (currentAngle < 0)
         {
             currentAngle += 360;
-        }   
+        }
     }
 
     public void MoveRightOnEdgeOfElipse(float targetAngle)
@@ -104,6 +113,17 @@ public class CharacterAndBaseUI : MonoBehaviour
     {    
         float time = 0;
         float startAngle = currentAngle;
+
+        // Fade out a bit
+        if (targetAngle != 270)
+        {
+            FadeOutABit();
+        }
+        else
+        {
+            FadeIn();
+        }
+
         while (time < duration)
         {
             time += Time.deltaTime;
@@ -136,6 +156,8 @@ public class CharacterAndBaseUI : MonoBehaviour
         {
             currentAngle -= 360;
         }
+
+        
     }
 
     public string GetCharacterTag()
@@ -179,5 +201,15 @@ public class CharacterAndBaseUI : MonoBehaviour
         moveUpDownTween?.pause();
 
         particleStarMoveUp.gameObject.SetActive(false);
+    }
+
+    public void FadeOutABit()
+    {
+        LeanTween.alphaCanvas(GetComponent<CanvasGroup>(), 0.9f, duration);
+    }
+
+    public void FadeIn()
+    {
+        LeanTween.alphaCanvas(GetComponent<CanvasGroup>(), 1f, duration);
     }
 }

@@ -26,8 +26,6 @@ public class EndAnnouncement : MonoBehaviour, IScreen
         victoryText.gameObject.SetActive(true);
         gameOverText.gameObject.SetActive(false);
         underline.gameObject.SetActive(true);
-
-        Debug.Log("Victory");
     }
 
     public void ShowGameOver()
@@ -37,8 +35,6 @@ public class EndAnnouncement : MonoBehaviour, IScreen
         victoryText.gameObject.SetActive(false);
         gameOverText.gameObject.SetActive(true);
         underline.gameObject.SetActive(true);
-
-        Debug.Log("Game Over");
     }
 
     public void Show()

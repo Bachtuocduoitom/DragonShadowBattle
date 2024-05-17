@@ -21,7 +21,6 @@ public class EnemyPicoloVisual : MonoBehaviour
     [SerializeField] private ParticleSystem lightning1;
     [SerializeField] private ParticleSystem lightning2;
 
-
     public enum State
     {
         Idle,
@@ -34,7 +33,6 @@ public class EnemyPicoloVisual : MonoBehaviour
     private Spine.AnimationState spineAnimationState;
 
     private string currentAnimation;
-    private bool triggerToUseSkill = true;
     private TrackEntry trayAnimation;
     private State state;
 
@@ -47,7 +45,6 @@ public class EnemyPicoloVisual : MonoBehaviour
 
         state = State.Idle;
         enemy.OnUseSkill += Enemy_OnUseSkill;
-
     }
 
     private void SkeletonAnimation_Event(TrackEntry trackEntry, Spine.Event e)
@@ -63,17 +60,18 @@ public class EnemyPicoloVisual : MonoBehaviour
                     lightning2.gameObject.SetActive(true);
                 break;
             case ATTACK_1: 
-                enemy.useSkill();
+                enemy.UseSkill();
                 break;
             case ATTACK_2: 
-                enemy.useSkill();
+                enemy.UseSkill();
                 break;
             case ATTACK_3 : 
-                enemy.useSkill();
+                enemy.UseSkill();
                 break;
             case "to_idle_1":
             case "to_idle_2":
             case "to_idle_3":
+                enemy.CompleteUsingSkill();
                 lightning1.gameObject.SetActive(false);
                 lightning2.gameObject.SetActive(false);
                 break;
@@ -103,27 +101,21 @@ public class EnemyPicoloVisual : MonoBehaviour
                 break;
             case State.UseSkill1:
                 SetAnimation(skill0, false);
-                
                 break;
             case State.UseSkill2:
                 SetAnimation(skill1, false);
-                
                 break;
             case State.UseSkill3:
                 SetAnimation(skill2, false);
-                
                 break;
         }
 
         if (trayAnimation.IsComplete && state != State.Idle)
         {
             state = State.Idle;
-            triggerToUseSkill = true;
         }
-     
     }
     
-
     private void Enemy_OnUseSkill(Enemy.EnemySkillTypes skill)
     {
         switch (skill)

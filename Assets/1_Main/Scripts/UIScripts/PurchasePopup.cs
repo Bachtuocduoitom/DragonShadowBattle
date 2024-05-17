@@ -53,7 +53,7 @@ public class PurchasePopup : MonoBehaviour, IScreen
         {
             purchasingText.text = "Purchasing . . . .";
         });
-        LeanTween.delayedCall(1f, () =>
+        LeanTween.delayedCall(1.2f, () =>
         {
             isPurchasing = false;
             purchaseText.gameObject.SetActive(true);
@@ -63,6 +63,9 @@ public class PurchasePopup : MonoBehaviour, IScreen
             purchaseText.text = "Purchase Successful";
 
             PurchaseCallback(coinsCardSO);
+
+            // Play sound
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.ka_ching);
         });
     }
 

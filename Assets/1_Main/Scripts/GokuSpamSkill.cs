@@ -39,16 +39,7 @@ public class GokuSpamSkill : PlayerSkillBase
         }
         
     }
-
-    private void OnTriggerEnter2D(Collider2D collider)
-    {
-        if (collider.TryGetComponent(out EnemySkill enemySkill))
-        {
-            ExplosionSpawner.Instance.PlayExplosionSmall(transform.position);
-            Destroy(gameObject);
-        }
-    }
-
+    
     public void SetUpCurvePosition(Vector3 pointBPosition)
     {
         pointA = new Vector3(transform.position.x, transform.position.y, 0);

@@ -31,6 +31,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip cheer;
     public AudioClip item;
     public AudioClip cach;
+    public AudioClip ka_ching;
+    public AudioClip win;
 
     private Transform[] childs;
     private void Awake()
@@ -80,12 +82,17 @@ public class AudioManager : MonoBehaviour
 
     public void PlayPlayerHit()
     {
-        SFXSource.PlayOneShot(playerHit[Random.Range(0, playerHit.Length)]);
+        SFXSource.PlayOneShot(playerHit[Random.Range(0, playerHit.Length)], 0.5f);
     }
 
     public void PlayEnemyHit()
     {
-        SFXSource.PlayOneShot(enemyHit[Random.Range(0, enemyHit.Length)]);
+        SFXSource.PlayOneShot(enemyHit[Random.Range(0, enemyHit.Length)], 0.5f);
+    }
+
+    public void StopSFX()
+    {
+        SFXSource.Stop();
     }
 
     public void TurnOffMusic()

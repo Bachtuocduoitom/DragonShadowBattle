@@ -16,8 +16,8 @@ public class DataManager : MonoBehaviour
     private const string CURRENT_CHARACTER = "CURRENT_CHARACTER";
     private const string UNLOCKED_GOKU_TRANSFORM_COUNT = "UNLOCKED_GOKU_TRANSFORM_COUNT";
     private const string UNLOCKED_VEGETA_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
-    private const string UNLOCKED_TRUNK_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
-    private const string UNLOCKED_GOHAN_TRANSFORM_COUNT = "UNLOCKED_VEGETA_TRANSFORM_COUNT";
+    private const string UNLOCKED_TRUNK_TRANSFORM_COUNT = "UNLOCKED_TRUNK_TRANSFORM_COUNT";
+    private const string UNLOCKED_GOHAN_TRANSFORM_COUNT = "UNLOCKED_GOHAN_TRANSFORM_COUNT";
     private const string CURRENT_LEVEL = "CURRENT_LEVEL";
     private const string PREVIOUS_LEVEL = "PREVIOUS_LEVEL";
     private const string LIKED_PAGE = "LIKED_PAGE";
@@ -73,13 +73,17 @@ public class DataManager : MonoBehaviour
 
     // Data in one level
     private int highestTransformIndex = 0;
-    private int levelBonus = 0;
     private int earnCoin = 0;
     private int currentEnemyIndex = 0;
 
     // Music and Sound, can modify here to turn on or off music and sound
     private bool isMusicOn = false;
     private bool isSoundOn = true;
+
+    // Show rate popup after 5 times play
+    private int countPlay = 0;  
+    private const int timeShowRatePopup = 5;
+
 
     private void Awake()
     {
@@ -389,6 +393,43 @@ public class DataManager : MonoBehaviour
 
         Save();
     }
+    public void IncreaseTransformsForCurrentCharracter(int numberTransformToUnlock)
+    {
+        for (int i = 0; i < numberTransformToUnlock; i++)
+        {
+            switch (currentCharacter)
+            {
+                case GOKU_CHARACTER:
+                    if (unlockedGokuTransform.Count >= gokuTransformSOList.Count)
+                    {
+                        return;
+                    }
+                    UnlockTransform(unlockedGokuTransform.Count);
+                    break;
+                case VEGETA_CHARACTER:
+                    if (unlockedVegetaTransform.Count >= vegetaTransformSOList.Count)
+                    {
+                        return;
+                    }
+                    UnlockTransform(unlockedVegetaTransform.Count);
+                    break;
+                case TRUNK_CHARACTER:
+                    if (unlockedTrunkTransform.Count >= trunkTransformSOList.Count)
+                    {
+                        return;
+                    }
+                    UnlockTransform(unlockedTrunkTransform.Count);
+                    break;
+                case GOHAN_CHARACTER:
+                    if (unlockedGohanTransform.Count >= gohanTransformSOList.Count)
+                    {
+                        return;
+                    }
+                    UnlockTransform(unlockedGohanTransform.Count);
+                    break;
+            }
+        }
+    }
     public TransformSO GetTransformSO(int transformIndex)
     {
         switch (currentCharacter)
@@ -497,11 +538,7 @@ public class DataManager : MonoBehaviour
     }
     public int GetLevelBonus()
     {
-        return levelBonus;
-    }
-    public void SetLevelBonus(int bonus)
-    {
-        levelBonus = (bonus + 1) * (currentLevel + 1) * 10;
+        return preLevel * 20;
     }
     public int GetEarnCoin()
     {
@@ -509,7 +546,7 @@ public class DataManager : MonoBehaviour
     }
     public void AddEarnCoin()
     {
-        earnCoin += 200;
+        earnCoin += 20;
     }
     public int GetTotalScore()
     {
@@ -526,9 +563,15 @@ public class DataManager : MonoBehaviour
     public void ResetDataLevel()
     {
         highestTransformIndex = 0;
-        levelBonus = 0;
         earnCoin = 0;
         currentEnemyIndex = 0;
+
+        // Increase count play
+        countPlay++;
+    }
+    public bool CanShowRatePopup()
+    {
+        return (countPlay % timeShowRatePopup) == 0;
     }
 
     #region Music and Sound
@@ -580,38 +623,42 @@ public class DataManager : MonoBehaviour
     #region Save Methods
     public void SaveUnlockedGokuTransformList()
     {
+        /*
         for (int i = 0; i < unlockedGokuTransform.Count; i++)
         {
             PlayerPrefs.SetInt(UNLOCKED_GOKU_TRANSFORM_COUNT + i, unlockedGokuTransform[i]);
         }
-
+        */
         PlayerPrefs.SetInt(UNLOCKED_GOKU_TRANSFORM_COUNT, unlockedGokuTransform.Count);
     }
     public void SaveUnlockedVegetaTransformList()
     {
+        /*
         for (int i = 0; i < unlockedVegetaTransform.Count; i++)
         {
             PlayerPrefs.SetInt(UNLOCKED_VEGETA_TRANSFORM_COUNT + i, unlockedVegetaTransform[i]);
         }
-
+        */
         PlayerPrefs.SetInt(UNLOCKED_VEGETA_TRANSFORM_COUNT, unlockedVegetaTransform.Count);
     }
     public void SaveUnlockedTrunkTransformList()
     {
+        /*
         for (int i = 0; i < unlockedTrunkTransform.Count; i++)
         {
             PlayerPrefs.SetInt(UNLOCKED_TRUNK_TRANSFORM_COUNT + i, unlockedTrunkTransform[i]);
         }
-
-        PlayerPrefs.SetInt(UNLOCKED_VEGETA_TRANSFORM_COUNT, unlockedTrunkTransform.Count);
+        */
+        PlayerPrefs.SetInt(UNLOCKED_TRUNK_TRANSFORM_COUNT, unlockedTrunkTransform.Count);
     }
     public void SaveUnlockedGohanTransformList()
     {
+        /*
         for (int i = 0; i < unlockedGohanTransform.Count; i++)
         {
             PlayerPrefs.SetInt(UNLOCKED_GOHAN_TRANSFORM_COUNT + i, unlockedGohanTransform[i]);
         }
-
+        */
         PlayerPrefs.SetInt(UNLOCKED_GOHAN_TRANSFORM_COUNT, unlockedGohanTransform.Count);
     }
 
@@ -636,7 +683,7 @@ public class DataManager : MonoBehaviour
         int count = PlayerPrefs.GetInt(UNLOCKED_GOKU_TRANSFORM_COUNT);
         for (int i = 0; i < count; i++)
         {
-            unlockedGokuTransform.Add(PlayerPrefs.GetInt(UNLOCKED_GOKU_TRANSFORM_COUNT + i));
+            unlockedGokuTransform.Add(i);
         }
     }
     public void LoadUnlockedVegetaTransformList()
@@ -645,7 +692,7 @@ public class DataManager : MonoBehaviour
         int count = PlayerPrefs.GetInt(UNLOCKED_VEGETA_TRANSFORM_COUNT);
         for (int i = 0; i < count; i++)
         {
-            unlockedVegetaTransform.Add(PlayerPrefs.GetInt(UNLOCKED_VEGETA_TRANSFORM_COUNT + i));
+            unlockedVegetaTransform.Add(i);
         }
     }
     public void LoadUnlockedTrunkTransformList()
@@ -654,7 +701,7 @@ public class DataManager : MonoBehaviour
         int count = PlayerPrefs.GetInt(UNLOCKED_TRUNK_TRANSFORM_COUNT);
         for (int i = 0; i < count; i++)
         {
-            unlockedTrunkTransform.Add(PlayerPrefs.GetInt(UNLOCKED_TRUNK_TRANSFORM_COUNT + i));
+            unlockedTrunkTransform.Add(i);
         }
     }
     public void LoadUnlockedGohanTransformList()
@@ -663,7 +710,7 @@ public class DataManager : MonoBehaviour
         int count = PlayerPrefs.GetInt(UNLOCKED_GOHAN_TRANSFORM_COUNT);
         for (int i = 0; i < count; i++)
         {
-            unlockedGohanTransform.Add(PlayerPrefs.GetInt(UNLOCKED_GOHAN_TRANSFORM_COUNT + i));
+            unlockedGohanTransform.Add(i);
         }
     }
 

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vegeta_15SO
   m_EditorClassIdentifier: 
   transformName: 15
-  transformSprite: {fileID: 21300000, guid: 7210af1de0700ca4ba10eff8dd8b3e86, type: 3}
+  transformSprite: {fileID: -132390774, guid: 88825339ae560dc4a832f433fde1130e, type: 3}
   maxHealth: 328050
   maxMana: 1000
   powerScale: 3280.5

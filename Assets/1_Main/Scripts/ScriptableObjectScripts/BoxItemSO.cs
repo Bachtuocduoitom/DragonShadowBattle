@@ -5,8 +5,7 @@ using UnityEngine;
 [CreateAssetMenu()]
 public class BoxItemSO : ScriptableObject
 {
-
     public Sprite sprite;
     public string describe;
-   
+    public BoxItem.BoxItemTypes boxItemType;
 }

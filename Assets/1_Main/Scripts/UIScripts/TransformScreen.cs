@@ -202,7 +202,7 @@ public class TransformScreen : MonoBehaviour, IScreen
     {
         gameObject.SetActive(true);
 
-        UpdateCardInfoAndPlayerTransformImage(0);
+        UpdateCardInfoAndPlayerTransformImage(0);      
 
         // Animation MoveIn
         PlayAnimationMoveIn();
@@ -210,8 +210,6 @@ public class TransformScreen : MonoBehaviour, IScreen
 
     public void Hide()
     {
-        //DataManager.Instance.ResetCurrentCharacter();
-
         gameObject.SetActive(false);
     }
 
@@ -224,7 +222,15 @@ public class TransformScreen : MonoBehaviour, IScreen
         Vector3 circularScrollLocalPos = circularScrollingList.gameObject.GetComponent<RectTransform>().localPosition;
         circularScrollingList.gameObject.GetComponent<RectTransform>().localPosition = new Vector3(circularScrollLocalPos.x - 350f, circularScrollLocalPos.y, circularScrollLocalPos.z);
         LeanTween.moveLocalX(circularScrollingList.gameObject, circularScrollLocalPos.x, 0.3f)
-            .setDelay(0.5f);
+            .setDelay(0.5f)
+            .setOnStart(() =>
+            {
+
+                // Update circular scrolling list
+                cardListBank.UpdateCardListBank();
+                circularScrollingList.Refresh(0);
+            });
+            
 
         // Card info move in
         cardInfo.PlayMoveInTween();

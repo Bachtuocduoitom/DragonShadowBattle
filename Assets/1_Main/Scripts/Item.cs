@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class Item : ItemBase
 {
     private float speed = 5f;
-    private ItemSpawner.ItemType itemType;
 
     private void Update()
     {
@@ -17,17 +16,8 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void SetItemType(ItemSpawner.ItemType itemType)
-    {
-        this.itemType = itemType;
-    }
-
-    public ItemSpawner.ItemType GetItemType()
-    {
-        return itemType;
-    }
-
-    public void HitPlayer()
+   
+    public override void HitPlayer()
     {
         Destroy(gameObject);
     }

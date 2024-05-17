@@ -26,7 +26,6 @@ public class EnemyPopcupListUI : MonoBehaviour
     private float waitingToMoveTimer = 1f;
     private bool startMoveEnemyList = false;
     private const float delayTime = 0.5f;
-
     private bool playSound = true;
 
     private void Start()
@@ -42,8 +41,8 @@ public class EnemyPopcupListUI : MonoBehaviour
 
         currentEnemy = DataManager.Instance.GetPreLevel();
         targetEnemy = DataManager.Instance.GetCurrentLevel();
-
-        if (currentEnemy > targetEnemy)
+        Debug.Log("Current enemy: " + currentEnemy + " Target enemy: " + targetEnemy);
+        if (Math.Abs(currentEnemy - targetEnemy) == 2)
         {
             speed = speedDown;
         }

@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: Fize1SO
   m_EditorClassIdentifier: 
   enemyName: Fize1
-  sprite: {fileID: 21300000, guid: 2f6041f50d473f1459f951925351e1d8, type: 3}
+  sprite: {fileID: -368064101, guid: 2864cdb4d204a1b4392251a72dd834f7, type: 3}
   maxHealth: 1350
   maxMana: 100
   powerScale: 13.5
   skillPrefabList:
-  - {fileID: 7392211599138738618, guid: e6a8ab1e662543b4b970377e2fca0494, type: 3}
-  - {fileID: 6747839664254842900, guid: 595e58a6dc7815d4bac2fe68aaee8070, type: 3}
-  - {fileID: 346810037827799838, guid: d08c10b188b3ae24785c154d3e0cc65d, type: 3}
+  - {fileID: 6747839664254842900, guid: c711f068c4d966349935a814e3966809, type: 3}
+  - {fileID: 6747839664254842900, guid: 178d4fee4368c2843bfebfbd5df47cb6, type: 3}
+  - {fileID: 6747839664254842900, guid: 2f5c114258edc1949877af1c3da358af, type: 3}

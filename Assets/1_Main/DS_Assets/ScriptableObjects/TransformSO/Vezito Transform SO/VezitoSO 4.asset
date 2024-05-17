@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: VezitoSO 4
   m_EditorClassIdentifier: 
   transformName: 4
-  transformSprite: {fileID: 21300000, guid: 25406daee9d7e114b86a576798110125, type: 3}
+  transformSprite: {fileID: -815288272, guid: 80e63446388d24243b975e68090d432f, type: 3}
   maxHealth: 0
   maxMana: 0
   powerScale: 0

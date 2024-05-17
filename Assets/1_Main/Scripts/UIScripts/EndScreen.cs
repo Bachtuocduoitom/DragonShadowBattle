@@ -17,6 +17,7 @@ public class EndScreen : MonoBehaviour, IScreen
     [SerializeField] private Button playButton;
     [SerializeField] private PlayerResultCard playerResultCard;
     [SerializeField] private ParticleSystem particleStarMoveUp;
+    [SerializeField] private RatePopup ratePopup;
 
 
     private void Awake()
@@ -24,6 +25,8 @@ public class EndScreen : MonoBehaviour, IScreen
         menuButton.onClick.AddListener(() =>
         {
             //SceneManager.LoadScene("MenuScene");
+            // Reset data level
+            DataManager.Instance.ResetDataLevel();
 
             SceneController.Instance.LoadMenuScene(ScreenController.ScreenType.MenuScreen);
 
@@ -56,6 +59,11 @@ public class EndScreen : MonoBehaviour, IScreen
         gameObject.SetActive(true);
 
         particleStarMoveUp.Play();
+
+        if (DataManager.Instance.CanShowRatePopup())
+        {
+            ratePopup.Show();
+        }
     }
 
     public void Hide()
@@ -70,7 +78,7 @@ public class EndScreen : MonoBehaviour, IScreen
         Show();
         resultText.text = VICTORY_TEXT;
 
-        playerResultCard.ShowResultSequentially();
+        playerResultCard.ShowResultSequentially(true);
     }
 
     public void ShowGameOver()
@@ -78,7 +86,7 @@ public class EndScreen : MonoBehaviour, IScreen
         Show();
         resultText.text = GAMEOVER_TEXT;
 
-        playerResultCard.ShowResultSequentially();
+        playerResultCard.ShowResultSequentially(false);
     }
 
     public bool IsShowed()

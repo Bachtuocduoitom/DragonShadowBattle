@@ -95,13 +95,13 @@ public class ScreenController : MonoBehaviour
         switch (screenType)
         {
             case ScreenType.MenuScreen:
-                return (IScreen) menuScreen;
+                return menuScreen;
             case ScreenType.TransformScreen:
-                return (IScreen) transformScreen;
+                return transformScreen;
             case ScreenType.FreeScreen:
-                return (IScreen) freeScreen;
+                return freeScreen;
             case ScreenType.CoinsScreen:
-                return (IScreen) coinsScreen;
+                return coinsScreen;
             default:
                 return null;
         }

@@ -7,13 +7,11 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
     public Action<EnemySkillTypes> OnUseSkill;
     public Action<float> OnHitDamage;
 
     [SerializeField] private Transform skillSpawnPos;
     [SerializeField] private EnemySO enemySO;
-
 
     public enum State
     {
@@ -28,14 +26,15 @@ public class Enemy : MonoBehaviour
     {
         Idle,
         WaitingToUseSkill,
-        UseSkill
+        UseSkill,
+        UsingSkill
     }
 
     public enum EnemySkillTypes
     {
         Skill1,
         Skill2,
-        Skill3,
+        Skill3
     }
 
     private Rigidbody2D rb;
@@ -43,13 +42,14 @@ public class Enemy : MonoBehaviour
     private UseSkillState useSkillState;
 
     private float waitingToMoveTimer;
-    private float waitingToMoveTimerMin = 1f;
-    private float waitingToMoveTimerMax = 3f;
+    private readonly float waitingToMoveTimerMin = 1f;
+    private readonly float waitingToMoveTimerMaxWhenDontUseSkill = 1.5f;
+    private readonly float waitingToMoveTimerMax = 3f;
     private float waitingToUseSkillTimer;
-    private float waitingToUseSkillTimerMin = 0.5f;
+    private readonly float waitingToUseSkillTimerMin = 0.2f;
 
-    private float moveSpeed = 10f;
-    private float moveInDuration = 1.5f;
+    private readonly float moveSpeed = 10f;
+    private readonly float moveInDuration = 1.5f;
     private Vector3 newPosition;
     private bool isPreUsedSkill = false;
     private EnemySkillTypes currentSkill;
@@ -57,46 +57,62 @@ public class Enemy : MonoBehaviour
 
     private float powerScale;
 
-    private Vector3[] moveablePositionList = { new Vector3(7.3f, 2.5f, 0), new Vector3(4.3f, 2.5f, 0), 
-        new Vector3(7.3f, 0, 0), new Vector3(4.3f, 0, 0), 
-        new Vector3(7.3f, -3.7f, 0), new Vector3(4.3f, -3.7f, 0), 
-        new Vector3(0, 0, 0) };
+    private Vector3[] moveablePositionList;
+
+    private float halfScreenWitdh;
+    private float halfScreenHeight;
+    private float behindPositionX;
+    private float topPositionY;
+    private float midPositionX;
+    private float botPositionY;
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         enemySkillList = enemySO.skillPrefabList;
-
         powerScale = enemySO.powerScale;
 
-        state = State.Move;
+        // Init State
+        state = State.MoveIn;
         useSkillState = UseSkillState.Idle;
-        
+
+        halfScreenWitdh = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0)).x;
+        halfScreenHeight = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0)).y;
+
+        behindPositionX = halfScreenWitdh * 10 / 13;
+        midPositionX = halfScreenWitdh * 1 / 2;
+        topPositionY = halfScreenHeight * 5 / 9;
+        botPositionY = - halfScreenHeight * 7 / 10;
+
+        moveablePositionList = new Vector3[] { new Vector3(behindPositionX, topPositionY, 0), new Vector3(midPositionX, topPositionY, 0),
+        new Vector3(behindPositionX, 0, 0), new Vector3(midPositionX, 0, 0),
+        new Vector3(behindPositionX, botPositionY, 0), new Vector3(midPositionX, botPositionY, 0),
+        new Vector3(0, 0, 0) };
+
         //Move enemy into the scene
         MoveInEnemy();
     }
 
     private void Update()
     {
+        if (!GameManager.Instance.IsGamePlay())
+        {
+            return;
+        }
+
+        // Handle Enemy State
         switch (state)
         {
             case State.MoveIn:
                 break;
-            case State.Idle:
-                if (!GameManager.Instance.IsGamePlay())
-                {
-                    return;
-                }
-
-                //Random time wait to move
-                waitingToMoveTimer = UnityEngine.Random.Range(waitingToMoveTimerMin, waitingToMoveTimerMax);
+            case State.Idle:    
                 state = State.WaitingToMove;
 
+                // Check whether last Move used Skill or not
                 bool isUseSkill = false;
-                //Check whether last Move used Skill or not
                 if (isPreUsedSkill)
                 {
-                    //random use skillTransform or not
+                    // Random use skillTransform or not
                     isUseSkill = (UnityEngine.Random.value > 0.45f);
                 } else
                 {
@@ -105,16 +121,34 @@ public class Enemy : MonoBehaviour
                 
                 if (isUseSkill)
                 {
-                    waitingToUseSkillTimer = UnityEngine.Random.Range(waitingToUseSkillTimerMin, waitingToMoveTimer);
-                    useSkillState = UseSkillState.WaitingToUseSkill;
-                    isPreUsedSkill = true;
+                    if (useSkillState == UseSkillState.Idle)
+                    {
+                        // Random time wait to move
+                        waitingToMoveTimer = UnityEngine.Random.Range(waitingToMoveTimerMin, waitingToMoveTimerMax);
+
+                        // Random time wait to use skillTransform
+                        waitingToUseSkillTimer = UnityEngine.Random.Range(waitingToUseSkillTimerMin, waitingToMoveTimer);
+
+                        useSkillState = UseSkillState.WaitingToUseSkill;
+                        isPreUsedSkill = true;
+                    } else
+                    {
+                        // Random time wait to move
+                        waitingToMoveTimer = UnityEngine.Random.Range(waitingToMoveTimerMin, waitingToMoveTimerMaxWhenDontUseSkill);
+                        
+                        isPreUsedSkill = false;
+                    }
+                    
                 } else
                 {
+                    // Random time wait to move
+                    waitingToMoveTimer = UnityEngine.Random.Range(waitingToMoveTimerMin, waitingToMoveTimerMaxWhenDontUseSkill);
+
                     isPreUsedSkill = false;
                 }
                 break;
             case State.WaitingToMove:
-                //wait to move
+                // Wait to move
                 waitingToMoveTimer -= Time.deltaTime;
                 if (waitingToMoveTimer < 0f)
                 {
@@ -130,12 +164,13 @@ public class Enemy : MonoBehaviour
                 break;
         }
 
+        // Handle Use Skill State
         switch (useSkillState)
         {
             case UseSkillState.Idle:
                 break;
             case UseSkillState.WaitingToUseSkill:
-                //wait to use skillTransform
+                // Wait to use skillTransform
                 waitingToUseSkillTimer -= Time.deltaTime;
                 if (waitingToUseSkillTimer < 0f)
                 {
@@ -144,14 +179,15 @@ public class Enemy : MonoBehaviour
                 break;
             case UseSkillState.UseSkill:
                 UseRandomSkill();
-                useSkillState = UseSkillState.Idle;
+                useSkillState = UseSkillState.UsingSkill;
+                break;
+            case UseSkillState.UsingSkill:
                 break;
         }
     }
 
     private void MoveToRandomPostion()
     {
-        
         transform.position = Vector3.MoveTowards(transform.position, newPosition, moveSpeed * Time.deltaTime);
 
         // Check wheter Enemy reached New Position
@@ -159,8 +195,6 @@ public class Enemy : MonoBehaviour
         {
             state = State.Idle;
         }
-        
-        
     }
 
     private void UseRandomSkill()
@@ -171,10 +205,9 @@ public class Enemy : MonoBehaviour
         OnUseSkill?.Invoke(currentSkill);
     }
 
-
     private void MoveInEnemy()
     {
-        Vector3 target = new Vector3(UnityEngine.Random.Range(6f, 9f), UnityEngine.Random.Range(-3.7f, 2.5f), 0f);
+        Vector3 target = new Vector3(UnityEngine.Random.Range(midPositionX, behindPositionX), UnityEngine.Random.Range(botPositionY, topPositionY), 0f);
         Vector3 startPosition = target + new Vector3(15f, 0f, 0f);
 
         LeanTween.move(gameObject, target, moveInDuration)
@@ -186,7 +219,7 @@ public class Enemy : MonoBehaviour
             });
     }
 
-    public void useSkill()
+    public void UseSkill()
     {
         Transform skillTransform;
         EnemySkill enemySkill;
@@ -213,6 +246,11 @@ public class Enemy : MonoBehaviour
         AudioManager.Instance.PlaySFX(AudioManager.Instance.skillFly);
     }
 
+    public void CompleteUsingSkill()
+    {
+        useSkillState = UseSkillState.Idle;
+    }
+
     public EnemySO GetEnemySO()
     {
         return enemySO;
@@ -228,9 +266,6 @@ public class Enemy : MonoBehaviour
 
             // Play sound
             AudioManager.Instance.PlayEnemyHit();
-
-            // Play explosion effect
-            ExplosionSpawner.Instance.PlayPlayerSkillExposion(playerSkill.GetSizeType(), playerSkill.GetPosition());
         }
     }
 

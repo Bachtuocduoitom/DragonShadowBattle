@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticGold : MonoBehaviour
+public class StaticGold : ItemBase
 {
     private float speed = 300f;
     private Rigidbody2D rb;
@@ -22,10 +22,6 @@ public class StaticGold : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
-    {
-       
-    }
 
 
 }

@@ -72,8 +72,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 0e43b1a830010b349a7fb9e64eeeb731, type: 3}
+  m_SortingOrder: 30
+  m_Sprite: {fileID: 1261171149, guid: d0975ec103807354b83102586b6c6aaa, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -184,6 +184,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4160431765195969955}
     m_Modifications:
+    - target: {fileID: 8922892771275201390, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: m_SortingOrder
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771275301580, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].value
+      value: 0.428293
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771275301580, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].inSlope
+      value: 0.23502016
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771275301580, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].inSlope
+      value: 0.23502016
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771275301580, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[0].outSlope
+      value: 0.23502016
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771275301580, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: SizeModule.curve.maxCurve.m_Curve.Array.data[1].outSlope
+      value: 0.23502016
+      objectReference: {fileID: 0}
     - target: {fileID: 8922892771294701454, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -222,6 +246,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8922892771294701454, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8922892771294739370, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8922892771294739374, guid: 1980d77edc3fa90478fe5b0907617fde, type: 3}

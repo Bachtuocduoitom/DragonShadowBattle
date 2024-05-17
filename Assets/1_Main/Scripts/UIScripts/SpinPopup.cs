@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class SpinPopup : MonoBehaviour, IScreen
 {
 
     [SerializeField] private SpinWheel spinWheel;
-    [SerializeField] private Image pointer;
+    [SerializeField] private PointerSpinWheel pointer;
     [SerializeField] private Button spinButton;
     [SerializeField] private BlackBackroundTouchable blackBackroundTouchable;
     [SerializeField] private RectTransform itemResult;
@@ -17,6 +18,7 @@ public class SpinPopup : MonoBehaviour, IScreen
 
     private bool canSpin = true;
     private bool onSpin = false;
+    private float rewardScaleUp = 1.5f;
 
     private void Awake()
     {
@@ -31,30 +33,7 @@ public class SpinPopup : MonoBehaviour, IScreen
             canSpin = false;
             onSpin = true;
             spinButton.gameObject.SetActive(false);
-            
-            LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -20f, 0.2f)
-            .setLoopPingPong(2)
-            .setOnComplete(() =>
-            {
-                LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -30f, 0.1f)
-                .setLoopPingPong(14)
-                .setOnComplete(() =>
-                {
-                    LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -20f, 0.3f)
-                    .setLoopPingPong(1)
-                    .setOnComplete(() =>
-                    {
-                        LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, -10f, 0.3f)
-                        .setOnComplete(() =>
-                        {
-                            LeanTween.rotateAround(pointer.rectTransform, Vector3.forward, 10f, 0.4f)
-                            .setEaseOutCubic();
-                    });
-
-                    });
-                });
-            });
-            
+            pointer.StartPointer();
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
@@ -66,17 +45,22 @@ public class SpinPopup : MonoBehaviour, IScreen
             Hide();
         };
 
-        spinWheel.OnSpinWheelFinished += (itemSprite, describe) =>
+        spinWheel.OnSpinWheelFinished += (boxItemType, itemSprite, describe, reward) =>
         {
-            spinButton.gameObject.SetActive(false);
+            spinButton.gameObject.SetActive(true);
             
             spinButton.GetComponent<SpinButton>().SetAdsSpin();
             LeanTween.delayedCall(0.5f, () =>
             {
                 ShowItemResult(itemSprite, describe);
+                GetReward(boxItemType, reward);
             });
 
+            pointer.StopPointer();
+
             onSpin = false;
+
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.win);
         };
     }
 
@@ -105,16 +89,34 @@ public class SpinPopup : MonoBehaviour, IScreen
         itemDescribe.text = describe;
         itemResult.gameObject.SetActive(true);
 
-        LeanTween.scale(itemResult, new Vector3(1.5f, 1.5f, 1.5f), 2f)
+        LeanTween.scale(itemResult, new Vector3(rewardScaleUp, rewardScaleUp, rewardScaleUp), 1f)
             .setOnComplete(() =>
             {
-                LeanTween.delayedCall(0.2f, () =>
+                LeanTween.delayedCall(1.5f, () =>
                 {
                     itemResult.gameObject.SetActive(false);
                 });
             });
+    }
 
-        
+    private void GetReward(BoxItem.BoxItemTypes boxItemType, string reward)
+    {
+        int rewardValue;
+        switch (boxItemType)
+        {
+            case BoxItem.BoxItemTypes.LevelReward:
+                rewardValue = int.Parse(reward);
+                DataManager.Instance.IncreaseTransformsForCurrentCharracter(rewardValue);
+                break;
+            case BoxItem.BoxItemTypes.CoinReward:
+                rewardValue = int.Parse(reward);
+                DataManager.Instance.IncreaseGoldAmount(rewardValue);
+                break;
+            case BoxItem.BoxItemTypes.BeanReward:
+                rewardValue = int.Parse(reward);
+                DataManager.Instance.IncreaseBeanAmount(rewardValue);
+                break;
+        }
     }
 
     public bool IsShowed()

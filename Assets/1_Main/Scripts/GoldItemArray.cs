@@ -15,7 +15,6 @@ public class GoldItemArray : MonoBehaviour
     private void Start()
     {
         staticGoldList = new StaticGold[numberOfItemsToSpawn];
-
        
         StartCoroutine(SpawnItems());
     }
@@ -30,16 +29,15 @@ public class GoldItemArray : MonoBehaviour
 
     private IEnumerator SpawnItems()
     {
-
         for (int i = 0; i < numberOfItemsToSpawn; i++)
         {
             if (staticGoldList[i] == null)
             {
                 staticGoldList[i] = Instantiate(staticGold, transform.position, Quaternion.identity);
                 staticGoldList[i].transform.SetParent(transform);
+                staticGoldList[i].SetItemType(ItemType.Gold);
                 yield return new WaitForSeconds(0.1f);
             }
         }
-            
     }
 }

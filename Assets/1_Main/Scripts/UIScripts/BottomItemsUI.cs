@@ -29,6 +29,7 @@ public class BottomItemsUI : MonoBehaviour
             if (DataManager.Instance.TryDecreaseBeanAmount(1))
             {
                 Player.Instance.UseBeanItem();
+                AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                 UpdateBeanAmount();
             } else
             {
@@ -36,14 +37,16 @@ public class BottomItemsUI : MonoBehaviour
                 {
                     goldDeductionAnimator.SetTrigger(NUMBER_POPUP);
                     Player.Instance.UseBeanItem();
+                    AudioManager.Instance.PlaySFX(AudioManager.Instance.item);
                     goldAmount.UpdateGoldAmount();
                 } 
             }
-           
-
-            
         });
 
+        adsItemButton.onClick.AddListener(() =>
+        {
+            AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
+        });
     }
 
     public void UpdateBeanAmount()

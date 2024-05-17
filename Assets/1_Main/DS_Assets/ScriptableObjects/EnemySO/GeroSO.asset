@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GeroSO
   m_EditorClassIdentifier: 
   enemyName: Gero
-  sprite: {fileID: 21300000, guid: 970d214e5b4080c4d977c2dfa0bca26b, type: 3}
+  sprite: {fileID: -3798049, guid: 2864cdb4d204a1b4392251a72dd834f7, type: 3}
   maxHealth: 300
   maxMana: 100
   powerScale: 3
