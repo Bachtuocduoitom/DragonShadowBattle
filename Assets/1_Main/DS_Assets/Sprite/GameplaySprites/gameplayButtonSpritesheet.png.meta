@@ -110,10 +110,31 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: onegame
+      name: pause-button
       rect:
         serializedVersion: 2
         x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ab41669ffffffff0800000000000000
+      internalID: -1772008543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: onegame
+      rect:
+        serializedVersion: 2
+        x: 513
         y: 0
         width: 200
         height: 200
@@ -134,8 +155,8 @@ TextureImporter:
       name: icon_video2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 201
+        x: 714
+        y: 0
         width: 144
         height: 144
       alignment: 9
@@ -155,8 +176,8 @@ TextureImporter:
       name: skill_2
       rect:
         serializedVersion: 2
-        x: 0
-        y: 346
+        x: 859
+        y: 0
         width: 139
         height: 139
       alignment: 9
@@ -176,8 +197,8 @@ TextureImporter:
       name: skill_1
       rect:
         serializedVersion: 2
-        x: 140
-        y: 346
+        x: 859
+        y: 140
         width: 116
         height: 109
       alignment: 9
@@ -197,8 +218,8 @@ TextureImporter:
       name: skill_3
       rect:
         serializedVersion: 2
-        x: 145
-        y: 201
+        x: 714
+        y: 145
         width: 110
         height: 109
       alignment: 9
@@ -218,8 +239,8 @@ TextureImporter:
       name: transfom_black
       rect:
         serializedVersion: 2
-        x: 201
-        y: 0
+        x: 825
+        y: 250
         width: 102
         height: 102
       alignment: 9
@@ -239,8 +260,8 @@ TextureImporter:
       name: skill_3 #11542
       rect:
         serializedVersion: 2
-        x: 256
-        y: 103
+        x: 513
+        y: 201
         width: 99
         height: 99
       alignment: 9
@@ -260,8 +281,8 @@ TextureImporter:
       name: skill_4
       rect:
         serializedVersion: 2
-        x: 304
-        y: 0
+        x: 613
+        y: 201
         width: 98
         height: 98
       alignment: 9
@@ -281,8 +302,8 @@ TextureImporter:
       name: item_tranform_bean_green
       rect:
         serializedVersion: 2
-        x: 256
-        y: 203
+        x: 928
+        y: 250
         width: 85
         height: 85
       alignment: 9
@@ -312,6 +333,7 @@ TextureImporter:
       icon_video2: 994263770
       item_tranform_bean_green: -817517939
       onegame: 527434205
+      pause-button: -1772008543
       skill_1: 1541151276
       skill_2: -542990736
       skill_3: 1670805251

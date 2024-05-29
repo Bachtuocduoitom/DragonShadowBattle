@@ -57,7 +57,8 @@ public class SceneController : MonoBehaviour
                         blackImage.gameObject.SetActive(false);
                     });
                 };
-            });
+            })
+            .setIgnoreTimeScale(true);
     }
 
     public void Update()

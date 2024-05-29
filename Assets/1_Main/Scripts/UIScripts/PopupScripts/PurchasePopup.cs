@@ -9,6 +9,7 @@ public class PurchasePopup : MonoBehaviour, IScreen
 {
     [SerializeField] private TextMeshProUGUI purchaseText;
     [SerializeField] private TextMeshProUGUI purchasingText;
+    [SerializeField] private TextMeshProUGUI rewardText;
     [SerializeField] private Button okButton;
     [SerializeField] private BlackBackroundTouchable blackBackgroundTouchable;
 
@@ -35,6 +36,7 @@ public class PurchasePopup : MonoBehaviour, IScreen
     {
         Show();
         purchaseText.gameObject.SetActive(false);
+        rewardText.gameObject.SetActive(false);
         purchasingText.gameObject.SetActive(true);
         okButton.gameObject.SetActive(false);
 
@@ -58,8 +60,24 @@ public class PurchasePopup : MonoBehaviour, IScreen
             isPurchasing = false;
             purchaseText.gameObject.SetActive(true);
             purchasingText.gameObject.SetActive(false);
+            rewardText.gameObject.SetActive(true);
             okButton.gameObject.SetActive(true);
 
+            switch (coinsCardSO.cardType)
+            {
+                case CoinCardUI.CoinsCardType.BeanAndGold:
+                    rewardText.text = "You got " + Util.GetCurrencyFormat(coinsCardSO.goldGainText)
+                    + " coins and " + coinsCardSO.cardValueText + " beans";
+                    break;
+                case CoinCardUI.CoinsCardType.Gold:
+                    rewardText.text = "You got " + Util.GetCurrencyFormat(coinsCardSO.goldGainText)
+                    + " coins";
+                    break;
+                case CoinCardUI.CoinsCardType.Ads:
+                    rewardText.text = "You got " + Util.GetCurrencyFormat(coinsCardSO.goldGainText)
+                    + " coins and free ads \n" + coinsCardSO.cardValueText;
+                    break;
+            }
             purchaseText.text = "Purchase Successful";
 
             PurchaseCallback(coinsCardSO);

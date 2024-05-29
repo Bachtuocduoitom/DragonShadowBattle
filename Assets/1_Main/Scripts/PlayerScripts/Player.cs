@@ -49,6 +49,7 @@ public class Player : MonoBehaviour
     private State state;
     private int numberOfTurnPerSpamSkill = 5;
     private float delayPerSpawnSkillTurn = 0.01f;
+    private const int goldIncreaseAmount = 100;
     private float borderX;
     private float spawnPositionX;
 
@@ -240,7 +241,7 @@ public class Player : MonoBehaviour
                     });
                     break;
                 case ItemSpawner.ItemType.Gold:
-                    DataManager.Instance.IncreaseGoldAmount(200);
+                    DataManager.Instance.IncreaseGoldAmount(goldIncreaseAmount);
                     DataManager.Instance.AddEarnCoin();
                     OnHitGold?.Invoke();
 

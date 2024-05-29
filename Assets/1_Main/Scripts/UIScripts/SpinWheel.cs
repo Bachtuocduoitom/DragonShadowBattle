@@ -17,6 +17,7 @@ public class SpinWheel : MonoBehaviour
 
     public float anglePerItem;
     private float targetItem;
+    private BoxItem currentRewardBoxItem;
 
     private void Start()
     {
@@ -27,6 +28,11 @@ public class SpinWheel : MonoBehaviour
     [ContextMenu("Spin")]
     public void Spin()
     {
+        if (currentRewardBoxItem != null)
+        {
+            currentRewardBoxItem.HideGreenFrame();
+        }
+
         StartCoroutine(SpinWheelEffect());
     }
 
@@ -48,7 +54,7 @@ public class SpinWheel : MonoBehaviour
 
         // Get the item that the wheel is pointing to
         float index = Mathf.Abs(transform.eulerAngles.z % 360) / anglePerItem;
-        if ( Mathf.RoundToInt(index) - index < 0.33f || Mathf.RoundToInt(index) - index < 0)
+        if ( Mathf.RoundToInt(index) - index < 0.315f || Mathf.RoundToInt(index) - index < 0)
         {
             index = Mathf.RoundToInt(index);
         } else
@@ -64,6 +70,7 @@ public class SpinWheel : MonoBehaviour
         if (boxItem != null)
         {
             boxItem.ShowGreenFrame();
+            currentRewardBoxItem = boxItem;
         }
         OnSpinWheelFinished?.Invoke(boxItem.GetBoxItemType(),
             boxItem.GetSpriteImage(),

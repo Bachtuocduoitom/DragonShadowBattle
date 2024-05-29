@@ -41,7 +41,7 @@ public class EnemyPopcupListUI : MonoBehaviour
 
         currentEnemy = DataManager.Instance.GetPreLevel();
         targetEnemy = DataManager.Instance.GetCurrentLevel();
-        Debug.Log("Current enemy: " + currentEnemy + " Target enemy: " + targetEnemy);
+        //Debug.Log("Current enemy: " + currentEnemy + " Target enemy: " + targetEnemy);
         if (Math.Abs(currentEnemy - targetEnemy) == 2)
         {
             speed = speedDown;

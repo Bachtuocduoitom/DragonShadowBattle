@@ -15,5 +15,5 @@ MonoBehaviour:
   cardIcon: {fileID: 1559852143, guid: 6a98e5a0277b55f4fa26e1783b3f44e4, type: 3}
   cardType: 0
   goldGainText: 2000
-  cardValueText: 20 bean
+  cardValueText: 20
   cardCost: 0.99

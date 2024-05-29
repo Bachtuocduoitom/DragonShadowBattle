@@ -11,9 +11,9 @@ public class PreStartGameplayScreen : MonoBehaviour, IScreen
     [SerializeField] private Button shopButton;
     [SerializeField] private Button playButton;
 
-    private float menuButtonTargetX = 260f;
-    private float shopButtonTargetX = -260f;
-    private float playButtonTargetY = 175f;
+    private float menuButtonTargetX = 230f;
+    private float shopButtonTargetX = -230f;
+    private float playButtonTargetY = 195f;
 
     private float timeDuration = 0.5f;
 

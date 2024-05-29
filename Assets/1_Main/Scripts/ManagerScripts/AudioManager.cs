@@ -105,7 +105,15 @@ public class AudioManager : MonoBehaviour
         SFXSource.mute = true;
     }
 
+    public void PauseSFX()
+    {
+        SFXSource.Pause();
+    }
 
+    public void UnPauseSFX()
+    {
+        SFXSource.UnPause();
+    }
 
     public void TurnOnMusic()
     {

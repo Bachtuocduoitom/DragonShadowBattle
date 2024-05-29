@@ -43,7 +43,7 @@ public class CoinCardUI : MonoBehaviour
         {
             case CoinsCardType.BeanAndGold:
                 goldGainText.text = "+" + Util.GetCurrencyFormat(coinsCardSO.goldGainText);
-                cardValueText.text = coinsCardSO.cardValueText;
+                cardValueText.text = coinsCardSO.cardValueText + " bean";
                 break;
             case CoinsCardType.Ads:
                 cardIcon.transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);

@@ -41,7 +41,7 @@ public class PlayerSkillBase : MonoBehaviour
     {
         if (collider.TryGetComponent(out EnemySkill enemySkill))
         {
-            Debug.Log(enemySkill.GetDamage() + " " + damage);
+            //Debug.Log(enemySkill.GetDamage() + " " + damage);
             if (enemySkill.GetDamage() < this.damage)
             {
                 enemySkill.HitPlayer();

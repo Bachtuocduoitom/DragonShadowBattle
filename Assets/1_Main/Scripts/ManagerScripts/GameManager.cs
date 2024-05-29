@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
         WaitingToStartGameplay,
         WaitingForEnemyMoveIn,
         Gameplay,
+        Pause,
         Victory,
         Defeat
     }
@@ -74,6 +75,9 @@ public class GameManager : MonoBehaviour
             case State.Gameplay:
                 HandleGameplay();
                 break;
+            case State.Pause:
+                HandlePause();
+                break;
             case State.Victory:
                 HandleVictory();
                 break;
@@ -114,20 +118,26 @@ public class GameManager : MonoBehaviour
         preStartGameplayScreen.Hide();
         playScreen.Show();
         blackScreen.Hide();
+        AudioManager.Instance.PlayGameplayMusic();
+
         LeanTween.delayedCall(waitingForEnemyMoveInTime,() =>
         {
+            // Init enemy and start gameplay
+            Transform enemyTransform = Instantiate(DataManager.Instance.GetEnemyPrefabForCurrentLevel(), enemyInitPosition, Quaternion.identity);
+            Player.Instance.StartGameplay();
+            ItemSpawner.Instance.StartSpawning();
+            playScreen.StartGamePlay();
+
             UpdateGameState(State.Gameplay);
         });
     }
 
     private void HandleGameplay()
     {
-        Transform enemyTransform = Instantiate(DataManager.Instance.GetEnemyPrefabForCurrentLevel(), enemyInitPosition, Quaternion.identity);
-        Player.Instance.StartGameplay();
-        ItemSpawner.Instance.StartSpawning();
-        playScreen.StartGamePlay();
+    }
 
-        AudioManager.Instance.PlayGameplayMusic();
+    private void HandlePause()
+    {
     }
 
     private void HandleVictory()

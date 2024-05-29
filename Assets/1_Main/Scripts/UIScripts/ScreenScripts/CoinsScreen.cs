@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CoinsScreen : MonoBehaviour, IScreen
 {
 
-    [SerializeField] private Button shopButton;
+    [SerializeField] private Button menuButton;
     [SerializeField] private GoldAmountTouchable goldAmountTouchable;
     [SerializeField] private CoinCardUI coinCardUI;
     [SerializeField] private RectTransform content;
@@ -17,9 +17,9 @@ public class CoinsScreen : MonoBehaviour, IScreen
 
     private void Awake()
     {
-        shopButton.onClick.AddListener(() =>
+        menuButton.onClick.AddListener(() =>
         {
-            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.TransformScreen);
+            ScreenController.Instance.ShowScreenWithTransition(ScreenController.ScreenType.MenuScreen);
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
@@ -69,7 +69,7 @@ public class CoinsScreen : MonoBehaviour, IScreen
         {
             case CoinCardUI.CoinsCardType.BeanAndGold:
                 DataManager.Instance.IncreaseGoldAmount(coinsCardSO.goldGainText);
-                DataManager.Instance.IncreaseBeanAmount(coinsCardSO.goldGainText);
+                DataManager.Instance.IncreaseBeanAmount(int.Parse(coinsCardSO.cardValueText));
                 goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
                 break;
             case CoinCardUI.CoinsCardType.Gold:

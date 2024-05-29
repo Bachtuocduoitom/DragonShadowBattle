@@ -174,7 +174,7 @@ public class TransformScreen : MonoBehaviour, IScreen
         circularScrollingList.Initialize();
     }
 
-    private void OnBoxSelected(ListBox box)
+    public void OnBoxSelected(ListBox box)
     {
         Debug.Log("Selected box: " + ((CardTransform)box).Content);
     }
@@ -183,7 +183,6 @@ public class TransformScreen : MonoBehaviour, IScreen
     {
         CardTransform cardTransform = (CardTransform) newFocusedBox;
         UpdateCardInfoAndPlayerTransformImage(cardTransform.Content);
-
     }
 
     private void UpdateCardInfoAndPlayerTransformImage(int currentTransform)

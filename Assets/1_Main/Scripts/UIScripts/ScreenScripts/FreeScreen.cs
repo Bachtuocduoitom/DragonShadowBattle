@@ -23,16 +23,20 @@ public class FreeScreen : MonoBehaviour, IScreen
         if (DataManager.Instance.IsLikedPage())
         {
             likeCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+            likeCard.GetComponent<FreeScreenCard>().SetCardText("Liked");
 
             DataManager.Instance.SetLikedPage();
         }
 
-        if (DataManager.Instance.IsWatchedVideo())
+        
+        if (DataManager.Instance.IsRatedGame())
         {
-            watchVideosCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+            rateUsCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+            rateUsCard.GetComponent<FreeScreenCard>().SetCardText("Rated");
 
-            DataManager.Instance.SetWatchedVideo();
+            DataManager.Instance.SetRatedGame();
         }
+        
 
         menuButton.onClick.AddListener(() =>
         {
@@ -68,9 +72,8 @@ public class FreeScreen : MonoBehaviour, IScreen
 
                 // Disable card
                 likeCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+                likeCard.GetComponent<FreeScreenCard>().SetCardText("Liked");
                 DataManager.Instance.SetLikedPage();
-
-
             }
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
@@ -78,7 +81,7 @@ public class FreeScreen : MonoBehaviour, IScreen
 
         watchVideosCard.onClick.AddListener(() =>
         {
-            if (!(DataManager.Instance.IsWatchedVideo()))
+            if (!(DataManager.Instance.IsRatedGame()))
             {
                 rewardPopup.Show();
                 rewardPopup.SetRewardText(200);
@@ -90,8 +93,8 @@ public class FreeScreen : MonoBehaviour, IScreen
                 goldText.text = Util.GetCurrencyFormat(DataManager.Instance.GetGoldAmount());
 
                 // Disable card
-                watchVideosCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
-                DataManager.Instance.SetWatchedVideo();
+                //watchVideosCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+                //DataManager.Instance.SetWatchedVideo();
             }
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
@@ -99,6 +102,10 @@ public class FreeScreen : MonoBehaviour, IScreen
 
         rateUsCard.onClick.AddListener(() =>
         {
+            // Disable card
+            rateUsCard.GetComponent<FreeScreenCard>().DisableCardBeforeClick();
+            rateUsCard.GetComponent<FreeScreenCard>().SetCardText("Rated");
+
             AudioManager.Instance.PlaySFX(AudioManager.Instance.buttonClick);
         });
     }

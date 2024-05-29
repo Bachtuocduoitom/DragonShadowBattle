@@ -45,7 +45,7 @@ public class DataManager : MonoBehaviour
     private int beanAmount = 10;
     private string currentCharacter = GOKU_CHARACTER;
     private string preCharacter = GOKU_CHARACTER;
-    private List<int> unlockedGokuTransform = new() { 0, 1, 2, 3, 4, 5, 6, 7};
+    private List<int> unlockedGokuTransform = new() { 0, 1};
     private List<int> unlockedVegetaTransform = new() { 0, 1 };
     private List<int> unlockedTrunkTransform = new() { 0, 1 };
     private List<int> unlockedGohanTransform = new() { 0, 1 };
@@ -53,7 +53,7 @@ public class DataManager : MonoBehaviour
     private int currentLevel = 1;
     private int preLevel = 0;
     private bool likedPage = false;
-    private bool watchedVideo = false;
+    private bool ratedGame = false;
 
     // Player List Transform SO
     [SerializeField] private List<TransformSO> gokuTransformSOList;
@@ -77,7 +77,7 @@ public class DataManager : MonoBehaviour
     private int currentEnemyIndex = 0;
 
     // Music and Sound, can modify here to turn on or off music and sound
-    private bool isMusicOn = false;
+    private bool isMusicOn = true;
     private bool isSoundOn = true;
 
     // Show rate popup after 5 times play
@@ -601,7 +601,7 @@ public class DataManager : MonoBehaviour
     }
     #endregion
 
-    #region Like and Watched Video
+    #region Like and Rate
     public bool IsLikedPage()
     {
         return likedPage;
@@ -610,13 +610,13 @@ public class DataManager : MonoBehaviour
     {
         likedPage = true;
     }
-    public bool IsWatchedVideo()
+    public bool IsRatedGame()
     {
-        return watchedVideo;
+        return ratedGame;
     }
-    public void SetWatchedVideo()
+    public void SetRatedGame()
     {
-        watchedVideo = true;
+        ratedGame = true;
     }
     #endregion
 

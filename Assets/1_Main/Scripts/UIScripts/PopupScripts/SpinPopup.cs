@@ -18,7 +18,8 @@ public class SpinPopup : MonoBehaviour, IScreen
 
     private bool canSpin = true;
     private bool onSpin = false;
-    private float rewardScaleUp = 1.5f;
+    private float rewardDefaultScale = 0.8f;
+    private float rewardScaleUp = 1.2f;
 
     private void Awake()
     {
@@ -49,7 +50,7 @@ public class SpinPopup : MonoBehaviour, IScreen
         {
             spinButton.gameObject.SetActive(true);
             
-            spinButton.GetComponent<SpinButton>().SetAdsSpin();
+            //spinButton.GetComponent<SpinButton>().SetAdsSpin();
             LeanTween.delayedCall(0.5f, () =>
             {
                 ShowItemResult(itemSprite, describe);
@@ -57,8 +58,6 @@ public class SpinPopup : MonoBehaviour, IScreen
             });
 
             pointer.StopPointer();
-
-            onSpin = false;
 
             AudioManager.Instance.PlaySFX(AudioManager.Instance.win);
         };
@@ -94,7 +93,12 @@ public class SpinPopup : MonoBehaviour, IScreen
             {
                 LeanTween.delayedCall(1.5f, () =>
                 {
+                    itemResult.localScale = new Vector3(rewardDefaultScale, rewardDefaultScale, rewardDefaultScale);
                     itemResult.gameObject.SetActive(false);
+
+                    // Can spin again
+                    onSpin = false;
+                    canSpin = true;
                 });
             });
     }
